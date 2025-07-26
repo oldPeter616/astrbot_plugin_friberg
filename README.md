@@ -1,8 +1,8 @@
-# helloworld
-
-AstrBot 插件模板
-
-A template plugin for AstrBot plugin feature
+一个给astrbot框架开发的猜选手插件(弗一把)。
+使用：
+开始游戏：/弗一把
+猜测：/我猜 xxx
+功能：/提示 | /结束
 
 # 支持
 

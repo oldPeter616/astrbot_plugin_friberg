@@ -1,0 +1,38 @@
+[
+  {
+    "name": "s1mple",
+    "age": 27,
+    "role": "AWPer",
+    "nationality": "乌克兰",
+    "continent": "欧洲",
+    "club": "Natus Vincere",
+    "major_participations": 14
+  },
+  {
+    "name": "ZywOo",
+    "age": 24,
+    "role": "AWPer",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Vitality",
+    "major_participations": 8
+  },
+  {
+    "name": "dev1ce",
+    "age": 29,
+    "role": "AWPer",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Astralis",
+    "major_participations": 19
+  },
+  {
+    "name": "NiKo",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "波斯尼亚和黑塞哥维那",
+    "continent": "欧洲",
+    "club": "G2",
+    "major_participations": 16
+  }
+]
