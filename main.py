@@ -70,12 +70,11 @@ class PlayerGuesser(Star):
         # 获取原始输入
         raw_input = event.message_str.strip()
         
-        # 为了健壮性，显式地处理输入中可能包含指令本身的情况
         if raw_input.startswith("我猜"):
-            # 从 "我猜 Niko" 中提取 "Niko"
+            # 从 "我猜 xxx" 中提取 "xxx"
             guess_name = raw_input.replace("我猜", "", 1).strip()
         else:
-            # 如果输入已经是 "Niko"，则直接使用
+            # 如果输入已经是 "xxx"，则直接使用
             guess_name = raw_input
 
         # 如果处理后为空，则认为输入无效
@@ -95,14 +94,12 @@ class PlayerGuesser(Star):
         
         feedback, is_win = self._generate_feedback(guessed_player, secret_player)
 
-        # --- Begin Bug Fix ---
         if is_win:
             del self.active_games[session_id]
             # 移除Markdown的**符号，因为是纯文本发送
             final_message = f"✅ 正确！谜底就是 {secret_player['name']}！\n\n{feedback}"
             # 使用已知可用的 plain_result 方法
             yield event.plain_result(final_message)
-        # --- End Bug Fix ---
         else:
             yield event.plain_result(feedback)
 
@@ -196,7 +193,7 @@ class PlayerGuesser(Star):
             feedback_parts.append(f"Major次数: {guessed_player['major_participations']}(↑)")
             is_win = False
 
-        return " | ".join(feedback_parts), is_win
+        return "\n".join(feedback_parts), is_win
 
     async def terminate(self):
         """插件停用时清空状态"""
