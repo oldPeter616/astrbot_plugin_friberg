@@ -35,12 +35,21 @@
 
 ## 安装
 
-对于普通用户，请在 AstrBot 的插件市场中寻找“骗子酒馆”并安装。
+对于普通用户，请在 AstrBot 的插件市场中寻找“friberg弗一把”并安装。
 
 对于开发者或手动安装：
 1.  将插件文件夹 `astrbot_plugin_friberg` 放置于 AstrBot 的 `data/plugins` 目录下。
 2.  重启 AstrBot 或在插件管理界面重新加载插件。
-3.  (如果插件有额外依赖) 根据 `requirements.txt` 安装依赖：`pip install -r requirements.txt` (本插件目前似乎没有外部依赖)。
+
+## 选手数据更新
+
+对于普通用户，请在 Astrbot 的插件市场寻找“friberg弗一把”并安装新版本。
+
+对于开发者或手动安装：
+1. 安装依赖: 在您的终端或命令行中，进入项目文件夹，然后运行：pip install -r requirements.txt
+2. 开始运行: 确保所有文件 (playerinfosearch.py, scraper.py, utils.py, data_models.py, config.txt, requirements.txt) 都在同一个文件夹
+3. 然后运行爬虫程序：python playerinfosearch.py
+
 
 ## 贡献
 
