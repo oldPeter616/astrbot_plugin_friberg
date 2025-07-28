@@ -153,15 +153,6 @@
     "major_participations": 7
   },
   {
-    "name": "Attacker",
-    "age": 28,
-    "role": "Rifler",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "TYLOO",
-    "major_participations": 4
-  },
-  {
     "name": "autimatic",
     "age": 28,
     "role": "Rifler",
@@ -1626,15 +1617,15 @@
     "nationality": "中国",
     "continent": "亚洲",
     "club": "TYLOO",
-    "major_participations": 0
+    "major_participations": 1
   },
   {
     "name": "advent",
-    "age": 23,
-    "role": "Rifler",
+    "age": 33,
+    "role": "IGL",
     "nationality": "中国",
     "continent": "亚洲",
-    "club": "RARE ATOM",
+    "club": "Retired",
     "major_participations": 0
   },
   {
@@ -1870,5 +1861,59 @@
     "continent": "北美洲",
     "club": "NRG",
     "major_participations": 4
+  },
+  {
+    "name": "Attacker",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "中国",
+    "continent": "亚洲",
+    "club": "TYLOO",
+    "major_participations": 4
+  },
+  {
+    "name": "Jee",
+    "age": 20,
+    "role": "AWPer",
+    "nationality": "中国",
+    "continent": "亚洲",
+    "club": "TYLOO",
+    "major_participations": 1
+  },
+  {
+    "name": "JamYoung",
+    "age": 24,
+    "role": "Rifler",
+    "nationality": "中国",
+    "continent": "亚洲",
+    "club": "TYLOO",
+    "major_participations": 1
+  },
+  {
+    "name": "Moseyuh",
+    "age": 20,
+    "role": "Rifler",
+    "nationality": "中国",
+    "continent": "亚洲",
+    "club": "TYLOO",
+    "major_participations": 1
+  },
+  {
+    "name": "Mercury",
+    "age": 24,
+    "role": "IGL",
+    "nationality": "中国",
+    "continent": "亚洲",
+    "club": "TYLOO",
+    "major_participations": 1
+  },
+  {
+    "name": "zhokiNg",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "中国",
+    "continent": "亚洲",
+    "club": "TYLOO",
+    "major_participations": 1
   }
 ]
