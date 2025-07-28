@@ -2,170 +2,140 @@ import requests
 from bs4 import BeautifulSoup, Tag
 import time
 import re
+import random # 导入random库
 from typing import List, Dict, Any, Optional, Set
 
 from data_models import Player
 from utils import get_continent_from_nationality
 
-class HLTVScraper:
-    """
-    封装了所有从HLTV.org爬取和解析数据的逻辑。
-    """
+class LiquipediaScraper:
     def __init__(self, config: Dict[str, Any]):
         self.base_url = config['BASE_URL']
+        # self.delay 不再是主要延迟手段，但可作为基础值
         self.delay = config['REQUEST_DELAY_SECONDS']
         self.session = requests.Session()
         self.session.headers.update({'User-Agent': config['USER_AGENT']})
         self.processed_player_urls: Set[str] = set()
 
-    def _get_soup(self, url: str) -> Optional[BeautifulSoup]:
+    def _get_soup(self, url: str, max_retries: int = 3) -> Optional[BeautifulSoup]:
         """
-        发起请求并返回BeautifulSoup对象，包含延迟和错误处理。
+        使用requests发起请求并返回Soup对象。
+        内置了随机延迟、指数退避和自动重试机制。
         """
-        # 确保是完整的URL
-        full_url = url if url.startswith('http') else self.base_url + url
-        try:
-            time.sleep(self.delay)
-            response = self.session.get(full_url, timeout=15)
-            response.raise_for_status()  # 如果请求失败则抛出异常
-            return BeautifulSoup(response.text, 'lxml')
-        except requests.RequestException as e:
-            print(f"❌ 请求错误: {full_url} - {e}")
-            return None
+        full_url = self.base_url + url
+        last_exception = None
+        
+        for attempt in range(max_retries):
+            try:
+                # 随机延迟，模拟人类行为
+                # 基础延迟 + 0到2秒的随机额外延迟
+                sleep_time = self.delay + random.uniform(0, 2)
+                time.sleep(sleep_time)
+
+                print(f"   - 正在请求 (尝试 {attempt + 1}/{max_retries}): {full_url}")
+                response = self.session.get(full_url, timeout=20)
+                
+                # 如果是429错误，则进行指数退避
+                if response.status_code == 429:
+                    # 从响应头获取建议的等待时间，如果没有则自己计算
+                    retry_after = int(response.headers.get("Retry-After", 30 * (attempt + 1)))
+                    print(f"   - ⚠️ 收到 429 速率限制警告。将退避 {retry_after} 秒...")
+                    time.sleep(retry_after)
+                    last_exception = requests.RequestException(f"Gave up after 429, attempt {attempt + 1}")
+                    continue # 继续下一次循环尝试
+
+                response.raise_for_status() # 对其他错误(如404, 500)则直接抛出异常
+                return BeautifulSoup(response.text, 'lxml')
+
+            except requests.RequestException as e:
+                last_exception = e
+                print(f"   - ❌ 请求中发生错误: {e}")
+                # 对于非429的连接错误，也进行短暂等待后重试
+                time.sleep(5 * (attempt + 1))
+                continue
+        
+        print(f"   - ❌ 在 {max_retries} 次尝试后，请求彻底失败: {full_url}")
+        print(f"   - 最终错误: {last_exception}")
+        return None
+
+    def _get_infobox_value(self, infobox: Tag, key: str) -> Optional[str]:
+        cell = infobox.find('div', class_='infobox-cell-1', string=re.compile(f'\\b{key}\\b', re.I))
+        if cell and cell.find_next_sibling('div', class_='infobox-cell-2'):
+            return cell.find_next_sibling('div').text.strip()
+        return None
 
     def _parse_player_profile(self, player_url: str) -> Optional[Player]:
-        """
-        解析单个选手页面，提取所有需要的信息。
-        """
         print(f"   - 正在解析选手: {player_url}")
         soup = self._get_soup(player_url)
-        if not soup:
-            return None
-
+        if not soup: return None
+        name = soup.find('h1', class_='firstHeading').text.strip()
+        infobox = soup.find('div', class_='infobox-cs')
+        if not infobox: return None
         try:
-            # CSS选择器是基于当前HLTV页面结构
-            name = soup.find('h1', class_='player-headline').text.strip()
-            age_text = soup.find('div', text='Age').find_next_sibling('div').text.strip()
-            age = int(age_text.split()[0]) # '24 years old' -> '24'
-            
-            nationality_tag = soup.find('div', text='Nationality').find_next_sibling('div').find('img')
-            nationality = nationality_tag['title'] if nationality_tag else 'N/A'
-            
-            team_tag = soup.find('div', text='Team').find_next_sibling('div').find('a')
-            club = team_tag.text.strip() if team_tag else None
-            
-            # 角色信息可能不存在，需要健壮处理
-            role_tag = soup.find('div', class_='player-stat-row', text='Primary role')
-            role = role_tag.find_next_sibling('div').text.strip() if role_tag else 'Rifler' # 默认为Rifler
-
-            # --- 简化逻辑警告 ---
-            # 完整获取Major参与次数和八强记录需要深度遍历选手的所有赛事页面，
-            # 这会极大增加爬虫的复杂度和运行时间。
-            # 此处采用简化逻辑：从选手的“成就”栏中查找Major奖杯数量作为替代。
-            # 这是一个近似值，但能保证程序高效运行。
-            achievements = soup.find_all('div', class_='trophy-event-name', text=re.compile('Major', re.IGNORECASE))
-            major_participations = len(achievements)
-
-            # 检查是否有八强或更好的成绩 (MVP, Champion, Finalist, Semi-finalist)
-            is_legend = False
-            if major_participations > 0:
-                for achievement in achievements:
-                    parent_trophy = achievement.find_parent('div', class_='trophy')
-                    if parent_trophy:
-                        # 检查奖杯图片URL是否包含1st, 2nd, 3-4th 或 mvp
-                        img_src = parent_trophy.find('img')['src']
-                        if any(s in img_src for s in ['/1st', '/2nd', '/3-4th', '/mvp']):
-                            is_legend = True
-                            break
-            # 对于此任务，我们直接返回解析出的信息，由调用者判断是否符合条件
-            
-            return Player(
-                name=name,
-                age=age,
-                role=role,
-                nationality=nationality,
-                continent=get_continent_from_nationality(nationality),
-                club=club,
-                major_participations=major_participations,
-            )
-        except (AttributeError, IndexError, ValueError) as e:
-            print(f"   - ❌ 解析选手页面失败: {player_url} - {e}")
+            born_text = self._get_infobox_value(infobox, 'Born') or ''
+            age_match = re.search(r'\(age\s+(\d+)\)', born_text)
+            age = int(age_match.group(1)) if age_match else 0
+            nationality = self._get_infobox_value(infobox, 'Nationality') or 'N/A'
+            role = self._get_infobox_value(infobox, 'Role') or 'Rifler'
+            club = self._get_infobox_value(infobox, 'Team')
+            major_count = 0
+            results_table = soup.find('table', class_='wikitable-striped')
+            if results_table:
+                rows = results_table.find_all('tr')
+                for row in rows:
+                    if row.find('th'): continue
+                    tier_cell = row.select_one('td:nth-of-type(1) a')
+                    event_cell = row.select_one('td:nth-of-type(4)')
+                    if tier_cell and event_cell:
+                        tier = tier_cell.get('title', '').lower()
+                        event_name = event_cell.text.lower()
+                        if 's-tier' in tier and 'major' in event_name:
+                            major_count += 1
+            return Player(name=name, age=age, role=role, nationality=nationality, continent=get_continent_from_nationality(nationality), club=club, major_participations=major_count)
+        except Exception as e:
+            print(f"   - ❌ 解析选手页面HTML失败: {player_url} - {e}")
             return None
 
-    def get_retired_legends(self) -> List[Player]:
-        """
-        获取所有被HLTV标记为“退役”且曾进入Major八强的选手。
-        """
-        print("\n🔍 开始获取【已退役】的Major八强选手...")
-        # HLTV的搜索功能可以筛选退役选手
-        # 注意：HLTV的搜索结果页面可能是动态加载的，这里只演示爬取第一页
-        search_url = self.base_url + '/results?playerFilter=retired'
-        soup = self._get_soup(search_url)
-        if not soup:
-            return []
-        
-        retired_players = []
-        player_tags = soup.select('td.player-world-rank a') # 根据实际页面结构调整
-        
-        if not player_tags: # 备用选择器
-             player_tags = soup.select('div.result-player a')
-
-        for tag in player_tags[:30]: # 限制数量以加快演示
-            player_url = tag['href']
-            if player_url in self.processed_player_urls:
-                continue
-            
-            player_data = self._parse_player_profile(player_url)
-            if player_data and player_data.major_participations > 0:
-                # 检查是否有八强成绩（基于简化的逻辑）
-                # 为了符合需求，我们需要确认选手真的进过八强，这里的简化逻辑可能不够精确
-                # 但根据我们的简化逻辑，只要有Major奖杯就算参与过
-                # 这里我们假设只要参与过Major的退役选手，我们都检查（实际需求是检查八强）
-                 retired_players.append(player_data)
-
-            self.processed_player_urls.add(player_url)
-        print(f"   ✔️ 找到 {len(retired_players)} 名符合条件的退役选手。")
-        return retired_players
-
-
-    def get_active_major_players(self) -> List[Player]:
-        """
-        获取所有参加过Major的现役选手。
-        最佳策略是从战队排名入手。
-        """
-        print("\n🔍 开始获取【现役】的Major参赛选手...")
-        ranking_url = self.base_url + '/ranking/teams'
-        soup = self._get_soup(ranking_url)
-        if not soup:
-            return []
-
-        active_players = []
-        team_tags = soup.select('div.ranked-team a.team-name') # 同样，选择器可能变化
-
-        for team_tag in team_tags[:20]: # 限制在Top 20战队以提高效率
-            team_url = team_tag['href'].replace('/team/', '/sendredirect/team/')
-            team_soup = self._get_soup(team_url)
-            if not team_soup:
-                continue
-            
-            player_tags = team_soup.select('td.player-holder a')
-            for player_tag in player_tags:
+    def _scrape_player_category(self, category_url: str, limit: int = 50) -> List[Player]:
+        players = []
+        next_page_url = category_url
+        while next_page_url and len(players) < limit:
+            soup = self._get_soup(next_page_url)
+            if not soup: break
+            player_group = soup.find('div', class_='mw-category-group')
+            if not player_group: break
+            for player_tag in player_group.select('ul > li > a'):
                 player_url = player_tag['href']
-                if player_url in self.processed_player_urls:
-                    continue
-                
+                if player_url.startswith('/counterstrike/index.php?title='): continue
+                if player_url in self.processed_player_urls: continue
                 player_data = self._parse_player_profile(player_url)
                 if player_data and player_data.major_participations > 0:
-                    active_players.append(player_data)
-
+                    players.append(player_data)
                 self.processed_player_urls.add(player_url)
-        print(f"   ✔️ 找到 {len(active_players)} 名符合条件的现役选手。")
-        return active_players
+                if len(players) >= limit: break
+            pagination_links = soup.select('div.mw-category-generated a')
+            next_page_url = None
+            for link in pagination_links:
+                if 'next page' in link.text:
+                    next_page_url = link['href']
+                    break
+        return players
+
+    def get_retired_legends(self) -> List[Player]:
+        print("\n🔍 开始获取【已退役】的Major八强选手...")
+        category_url = '/counterstrike/index.php?title=Category:Retired_Players'
+        players = self._scrape_player_category(category_url)
+        print(f"   ✔️ 找到 {len(players)} 名符合条件的退役选手。")
+        return players
+
+    def get_active_major_players(self) -> List[Player]:
+        print("\n🔍 开始获取【现役】的Major参赛选手...")
+        category_url = '/counterstrike/index.php?title=Category:Active_Players'
+        players = self._scrape_player_category(category_url)
+        print(f"   ✔️ 找到 {len(players)} 名符合条件的现役选手。")
+        return players
 
     def fetch_all_players(self) -> List[Player]:
-        """
-        执行所有爬取任务并返回合并后的选手列表。
-        """
         all_players = []
         all_players.extend(self.get_retired_legends())
         all_players.extend(self.get_active_major_players())
