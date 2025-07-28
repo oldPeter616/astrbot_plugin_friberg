@@ -1,12 +1,12 @@
+import re
 import json
 import random
 from pathlib import Path
-from typing import Tuple
 from astrbot.api.event import filter, AstrMessageEvent
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 
-@register("astrbot_plugin_friberg", "oldPeter", "一个猜选手名字的游戏插件", "1.0.0")
+@register("astrbot_plugin_friberg", "YourName", "一个猜选手名字的游戏插件", "1.0.0")
 class PlayerGuesser(Star):
     def __init__(self, context: Context):
         super().__init__(context)
@@ -49,7 +49,6 @@ class PlayerGuesser(Star):
             return
 
         secret_player = random.choice(self.players_list)
-        # 初始化游戏状态，包含谜底选手和一个用于记录已给提示的空集合
         self.active_games[session_id] = {
             'player': secret_player,
             'given_hints': set()
@@ -57,15 +56,14 @@ class PlayerGuesser(Star):
         
         logger.info(f"会话 {session_id} 开始新游戏，谜底: {secret_player['name']}")
 
-        # 精心编写的游戏指南
         instructions = """\
 欢迎来到“猜选手”游戏！
 我已经想好了一位CS选手，请你来猜猜他是谁。
 
 --- 游戏指南 ---
-• 猜测: 请发送“我猜 [选手名]”。
-• 提示: 需要线索时，请发送“/提示”。每次都会给你一条不同的新线索哦！
-• 放弃: 想结束当前这局，请发送“游戏结束”或“游戏停止”。
+• 猜测: 请发送“我猜 [选手名]”或“猜 [选手名]”。
+• 提示: 需要线索时，请发送“提示”。每次都会给你一条不同的新线索哦！
+• 放弃: 想结束当前这局，请发送“结束”或“停止”。
 • 新游戏: 输入 /弗一把 随时开启新的一局。
 
 --- 符号说明 ---
@@ -78,7 +76,7 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         yield event.plain_result(instructions)
 
     @filter.regex(r"^(?:我猜|猜)\s*(.+)")
-    async def make_guess(self, event: AstrMessageEvent, matched: Tuple[str, ...]):
+    async def make_guess(self, event: AstrMessageEvent):
         """进行一次选手猜测（支持多种自然语言模式）。"""
         session_id = event.get_session_id()
 
@@ -86,7 +84,20 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
             yield event.plain_result("游戏尚未开始，请先使用 `/弗一把` 来开始一局新游戏。")
             return
 
-        guess_name = matched[0].strip()
+        # --- Begin Final Bug Fix ---
+        # 基于文档，正确的做法是在方法内部手动解析消息文本
+        full_text = event.message_str.strip()
+        match = re.match(r"^(?:我猜|猜)\s*(.+)", full_text)
+        
+        if match:
+            # 从我们自己的匹配结果中安全地获取选手名
+            guess_name = match.groups()[0].strip()
+        else:
+            # 此处作为最终保护，理论上不应触发，因为装饰器已过滤
+            logger.error(f"make_guess被触发，但手动正则匹配失败，文本为: {full_text}")
+            return
+        # --- End Final Bug Fix ---
+            
         if not guess_name:
             yield event.plain_result("请输入你要猜测的选手名称，例如：“猜 s1mple”")
             return
@@ -103,7 +114,6 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         feedback, is_win = self._generate_feedback(guessed_player, secret_player)
 
         if is_win:
-            # 游戏胜利，清理状态
             del self.active_games[session_id]
             final_message = f"✅ 正确！谜底就是 {secret_player['name']}！\n\n{feedback}"
             yield event.plain_result(final_message)
@@ -122,17 +132,14 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         secret_player = game_state['player']
         given_hints = game_state['given_hints']
         
-        # 定义所有可以作为提示的属性
         hint_pool = {"职责", "国籍", "俱乐部", "Major次数"}
         
-        # 计算出还未给过的提示
         available_hints = list(hint_pool - given_hints)
         
         if not available_hints:
             yield event.plain_result("所有提示均已用尽！")
             return
 
-        # 随机选择一个未给过的提示
         hint_key_map = {
             "职责": "role",
             "国籍": "nationality",
@@ -143,7 +150,6 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         chosen_key_en = hint_key_map[chosen_key_cn]
         hint_value = secret_player.get(chosen_key_en)
 
-        # 记录这个提示已经被给过
         given_hints.add(chosen_key_cn)
         
         yield event.plain_result(f"提示：这位选手的 {chosen_key_cn} 是 {hint_value}。")
@@ -155,8 +161,7 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         if session_id not in self.active_games:
             yield event.plain_result("当前没有正在进行的游戏。")
             return
-        
-        # 游戏结束，公布答案并清理状态
+            
         secret_player = self.active_games.pop(session_id)['player']
         yield event.plain_result(f"游戏已停止。正确答案是：{secret_player['name']}。")
             
@@ -165,24 +170,21 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         feedback_parts = []
         is_win = True
 
-        # 1. 年龄
         if guessed_player['age'] == secret_player['age']:
             feedback_parts.append(f"年龄: {guessed_player['age']}(√)")
         elif guessed_player['age'] > secret_player['age']:
             feedback_parts.append(f"年龄: {guessed_player['age']}(↓)")
             is_win = False
-        else: # guessed_player['age'] < secret_player['age']
+        else: 
             feedback_parts.append(f"年龄: {guessed_player['age']}(↑)")
             is_win = False
             
-        # 2. 职责 (Role)
         if guessed_player['role'] == secret_player['role']:
             feedback_parts.append(f"职责: {guessed_player['role']}(√)")
         else:
             feedback_parts.append(f"职责: {guessed_player['role']}(×)")
             is_win = False
             
-        # 3. 国籍 & 大洲
         if guessed_player['nationality'] == secret_player['nationality']:
             feedback_parts.append(f"国籍: {guessed_player['nationality']}(√)")
         elif guessed_player['continent'] == secret_player['continent']:
@@ -192,14 +194,12 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
             feedback_parts.append(f"国籍: {guessed_player['nationality']}(×)")
             is_win = False
             
-        # 4. 俱乐部
         if guessed_player['club'] == secret_player['club']:
             feedback_parts.append(f"俱乐部: {guessed_player['club']}(√)")
         else:
             feedback_parts.append(f"俱乐部: {guessed_player['club']}(×)")
             is_win = False
 
-        # 5. Major参与次数
         if guessed_player['major_participations'] == secret_player['major_participations']:
             feedback_parts.append(f"Major次数: {guessed_player['major_participations']}(√)")
         elif guessed_player['major_participations'] > secret_player['major_participations']:
