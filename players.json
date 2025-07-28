@@ -1,156 +1,138 @@
 [
   {
-    "name": "ZywOo",
-    "age": 24,
-    "role": "AWPer",
-    "nationality": "法国",
-    "continent": "欧洲",
-    "club": "Vitality",
-    "major_participations": 10
-  },
-  {
-    "name": "s1mple",
-    "age": 27,
-    "role": "AWPer",
-    "nationality": "乌克兰",
-    "continent": "欧洲",
-    "club": "Inactive",
-    "major_participations": 13
-  },
-  {
-    "name": "donk",
-    "age": 18,
+    "name": "1eeR",
+    "age": 21,
     "role": "Rifler",
     "nationality": "俄罗斯",
     "continent": "欧洲",
-    "club": "Team Spirit",
+    "club": "Nemiga Gaming",
+    "major_participations": 1
+  },
+  {
+    "name": "910",
+    "age": 19,
+    "role": "Rifler",
+    "nationality": "蒙古",
+    "continent": "亚洲",
+    "club": "The MongolZ",
     "major_participations": 2
   },
   {
-    "name": "m0NESY",
-    "age": 20,
-    "role": "AWPer",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Team Falcons",
-    "major_participations": 4
-  },
-  {
-    "name": "NiKo",
+    "name": "acoR",
     "age": 28,
-    "role": "Rifler",
-    "nationality": "波斯尼亚和黑塞哥维那",
-    "continent": "欧洲",
-    "club": "Team Falcons",
-    "major_participations": 18
-  },
-  {
-    "name": "ropz",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "爱沙尼亚",
-    "continent": "欧洲",
-    "club": "Vitality",
-    "major_participations": 12
-  },
-  {
-    "name": "sh1ro",
-    "age": 24,
-    "role": "AWPer",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Team Spirit",
-    "major_participations": 6
-  },
-  {
-    "name": "device",
-    "age": 29,
     "role": "AWPer",
     "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "Astralis",
-    "major_participations": 19
+    "club": "GamerLegion",
+    "major_participations": 2
   },
   {
-    "name": "hooxi",
-    "age": 30,
-    "role": "IGL",
-    "nationality": "丹麦",
+    "name": "adamb",
+    "age": 21,
+    "role": "Rifler",
+    "nationality": "瑞典",
     "continent": "欧洲",
-    "club": "Astralis",
+    "club": "Metizport",
+    "major_participations": 1
+  },
+  {
+    "name": "adreN",
+    "age": 35,
+    "role": "Rifler",
+    "nationality": "哈萨克斯坦",
+    "continent": "亚洲",
+    "club": "Retired",
+    "major_participations": 11
+  },
+  {
+    "name": "Aerial",
+    "age": 32,
+    "role": "Rifler",
+    "nationality": "芬兰",
+    "continent": "欧洲",
+    "club": "JANO Esports",
     "major_participations": 3
   },
   {
-    "name": "karrigan",
-    "age": 35,
-    "role": "IGL",
+    "name": "Ag1l",
+    "age": 20,
+    "role": "Rifler",
+    "nationality": "葡萄牙",
+    "continent": "欧洲",
+    "club": "SAW",
+    "major_participations": 1
+  },
+  {
+    "name": "aizy",
+    "age": 31,
+    "role": "Rifler",
     "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "FaZe Clan",
-    "major_participations": 20
+    "club": "Retired",
+    "major_participations": 8
   },
   {
-    "name": "huNter-",
-    "age": 29,
-    "role": "Rifler",
-    "nationality": "波斯尼亚和黑塞哥维那",
-    "continent": "欧洲",
-    "club": "G2 Esports",
-    "major_participations": 11
-  },
-  {
-    "name": "frozen",
-    "age": 23,
-    "role": "Rifler",
-    "nationality": "斯洛伐克",
-    "continent": "欧洲",
-    "club": "FaZe Clan",
-    "major_participations": 7
-  },
-  {
-    "name": "broky",
+    "name": "akez",
     "age": 24,
-    "role": "AWPer",
-    "nationality": "拉脱维亚",
-    "continent": "欧洲",
-    "club": "FaZe Clan",
-    "major_participations": 9
-  },
-  {
-    "name": "rain",
-    "age": 30,
     "role": "Rifler",
     "nationality": "挪威",
     "continent": "欧洲",
-    "club": "FaZe Clan",
-    "major_participations": 18
+    "club": "Free Agent",
+    "major_participations": 0
   },
   {
-    "name": "Twistzz",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "加拿大",
-    "continent": "北美洲",
-    "club": "Team Liquid",
-    "major_participations": 11
-  },
-  {
-    "name": "EliGE",
+    "name": "Aleksib",
     "age": 28,
-    "role": "Rifler",
-    "nationality": "美国",
-    "continent": "北美洲",
-    "club": "FaZe Clan",
-    "major_participations": 14
+    "role": "IGL",
+    "nationality": "芬兰",
+    "continent": "欧洲",
+    "club": "Natus Vincere",
+    "major_participations": 8
   },
   {
-    "name": "Magisk",
-    "age": 27,
+    "name": "alex666",
+    "age": 20,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "B8",
+    "major_participations": 1
+  },
+  {
+    "name": "allu",
+    "age": 33,
+    "role": "AWPer",
+    "nationality": "芬兰",
+    "continent": "欧洲",
+    "club": "JANO Esports",
+    "major_participations": 8
+  },
+  {
+    "name": "AmaNEk",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Free Agent",
+    "major_participations": 5
+  },
+  {
+    "name": "anarkez",
+    "age": 24,
+    "role": "AWPer",
+    "nationality": "以色列",
+    "continent": "亚洲",
+    "club": "9 Pandas",
+    "major_participations": 0
+  },
+  {
+    "name": "AnJ",
+    "age": 29,
     "role": "Rifler",
     "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "Team Falcons",
-    "major_participations": 12
+    "club": "Retired",
+    "major_participations": 1
   },
   {
     "name": "apEX",
@@ -158,124 +140,61 @@
     "role": "IGL",
     "nationality": "法国",
     "continent": "欧洲",
-    "club": "Vitality",
+    "club": "Team Vitality",
     "major_participations": 18
   },
   {
-    "name": "Spinx",
-    "age": 24,
-    "role": "Rifler",
-    "nationality": "以色列",
-    "continent": "亚洲",
-    "club": "MOUZ",
-    "major_participations": 6
-  },
-  {
-    "name": "blameF",
-    "age": 28,
-    "role": "IGL",
-    "nationality": "丹麦",
-    "continent": "欧洲",
-    "club": "Astralis",
-    "major_participations": 6
-  },
-  {
-    "name": "stavn",
-    "age": 23,
-    "role": "Rifler",
-    "nationality": "丹麦",
-    "continent": "欧洲",
-    "club": "Astralis",
-    "major_participations": 7
-  },
-  {
-    "name": "chopper",
-    "age": 28,
-    "role": "IGL",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Team Spirit",
-    "major_participations": 7
-  },
-  {
-    "name": "zweih",
+    "name": "ariucle",
     "age": 20,
     "role": "Rifler",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Team Spirit",
-    "major_participations": 0
-  },
-  {
-    "name": "zont1x",
-    "age": 19,
-    "role": "Rifler",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Team Spirit",
-    "major_participations": 2
-  },
-  {
-    "name": "flameZ",
-    "age": 22,
-    "role": "Rifler",
-    "nationality": "以色列",
+    "nationality": "蒙古",
     "continent": "亚洲",
-    "club": "Vitality",
-    "major_participations": 6
+    "club": "Chinggis Warriors",
+    "major_participations": 1
   },
   {
-    "name": "mezii",
-    "age": 26,
-    "role": "Rifler",
-    "nationality": "英国",
-    "continent": "欧洲",
-    "club": "Vitality",
-    "major_participations": 4
-  },
-  {
-    "name": "Jimpphat",
-    "age": 18,
-    "role": "Rifler",
-    "nationality": "芬兰",
-    "continent": "欧洲",
-    "club": "MOUZ",
-    "major_participations": 3
-  },
-  {
-    "name": "siuhy",
-    "age": 22,
+    "name": "arT",
+    "age": 29,
     "role": "IGL",
-    "nationality": "波兰",
-    "continent": "欧洲",
-    "club": "Team Liquid",
-    "major_participations": 3
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "Fluxo",
+    "major_participations": 7
   },
   {
-    "name": "torzsi",
-    "age": 23,
-    "role": "AWPer",
-    "nationality": "匈牙利",
-    "continent": "欧洲",
-    "club": "MOUZ",
-    "major_participations": 4
-  },
-  {
-    "name": "xertioN",
-    "age": 21,
+    "name": "Attacker",
+    "age": 28,
     "role": "Rifler",
-    "nationality": "以色列",
+    "nationality": "中国",
     "continent": "亚洲",
-    "club": "MOUZ",
+    "club": "TYLOO",
     "major_participations": 4
   },
   {
-    "name": "Brollan",
+    "name": "autimatic",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "NRG",
+    "major_participations": 8
+  },
+  {
+    "name": "Ax1Le",
     "age": 23,
     "role": "Rifler",
-    "nationality": "瑞典",
+    "nationality": "俄罗斯",
     "continent": "欧洲",
-    "club": "MOUZ",
+    "club": "BetBoom Team",
+    "major_participations": 4
+  },
+  {
+    "name": "AZR",
+    "age": 33,
+    "role": "IGL",
+    "nationality": "澳大利亚",
+    "continent": "大洋洲",
+    "club": "Retired",
     "major_participations": 8
   },
   {
@@ -285,78 +204,60 @@
     "nationality": "乌克兰",
     "continent": "欧洲",
     "club": "Natus Vincere",
+    "major_participations": 4
+  },
+  {
+    "name": "boltz",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "Imperial Esports",
+    "major_participations": 8
+  },
+  {
+    "name": "Boombl4",
+    "age": 26,
+    "role": "IGL",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "BetBoom Team",
     "major_participations": 6
   },
   {
-    "name": "jL",
-    "age": 25,
+    "name": "Brehze",
+    "age": 27,
     "role": "Rifler",
-    "nationality": "立陶宛",
-    "continent": "欧洲",
-    "club": "Natus Vincere",
-    "major_participations": 4
-  },
-  {
-    "name": "Aleksib",
-    "age": 28,
-    "role": "IGL",
-    "nationality": "芬兰",
-    "continent": "欧洲",
-    "club": "Natus Vincere",
-    "major_participations": 9
-  },
-  {
-    "name": "iM",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "罗马尼亚",
-    "continent": "欧洲",
-    "club": "Natus Vincere",
-    "major_participations": 4
-  },
-  {
-    "name": "w0nderful",
-    "age": 20,
-    "role": "AWPer",
-    "nationality": "乌克兰",
-    "continent": "欧洲",
-    "club": "Natus Vincere",
-    "major_participations": 2
-  },
-  {
-    "name": "nexa",
-    "age": 28,
-    "role": "IGL",
-    "nationality": "塞尔维亚",
-    "continent": "欧洲",
-    "club": "G2 Esports",
-    "major_participations": 9
-  },
-  {
-    "name": "malbsMd",
-    "age": 22,
-    "role": "Rifler",
-    "nationality": "危地马拉",
+    "nationality": "美国",
     "continent": "北美洲",
-    "club": "G2 Esports",
-    "major_participations": 1
+    "club": "Retired",
+    "major_participations": 6
   },
   {
-    "name": "SunPayus",
-    "age": 26,
+    "name": "broky",
+    "age": 24,
     "role": "AWPer",
-    "nationality": "西班牙",
+    "nationality": "拉脱维亚",
     "continent": "欧洲",
-    "club": "G2 Esports",
+    "club": "FaZe Clan",
+    "major_participations": 5
+  },
+  {
+    "name": "buster",
+    "age": 25,
+    "role": "Rifler",
+    "nationality": "哈萨克斯坦",
+    "continent": "亚洲",
+    "club": "Free Agent",
     "major_participations": 4
   },
   {
-    "name": "Snappi",
-    "age": 35,
-    "role": "IGL",
-    "nationality": "丹麦",
+    "name": "byali",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "波兰",
     "continent": "欧洲",
-    "club": "Team Falcons",
+    "club": "Izako Boars",
     "major_participations": 11
   },
   {
@@ -365,206 +266,44 @@
     "role": "IGL",
     "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "Team Liquid",
-    "major_participations": 10
-  },
-  {
-    "name": "KSCERATO",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "巴西",
-    "continent": "南美洲",
-    "club": "FURIA",
+    "club": "Astralis",
     "major_participations": 8
   },
   {
-    "name": "yuurih",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "巴西",
-    "continent": "南美洲",
-    "club": "FURIA",
-    "major_participations": 8
-  },
-  {
-    "name": "FalleN",
-    "age": 34,
-    "role": "AWPer",
-    "nationality": "巴西",
-    "continent": "南美洲",
-    "club": "FURIA",
-    "major_participations": 15
-  },
-  {
-    "name": "chelo",
-    "age": 26,
-    "role": "Rifler",
-    "nationality": "巴西",
-    "continent": "南美洲",
-    "club": "FURIA",
-    "major_participations": 3
-  },
-  {
-    "name": "hallzerk",
-    "age": 25,
-    "role": "AWPer",
-    "nationality": "挪威",
-    "continent": "欧洲",
-    "club": "Complexity",
-    "major_participations": 2
-  },
-  {
-    "name": "NAF",
-    "age": 27,
-    "role": "Rifler",
-    "nationality": "加拿大",
-    "continent": "北美洲",
-    "club": "Team Liquid",
-    "major_participations": 16
-  },
-  {
-    "name": "dupreeh",
-    "age": 32,
+    "name": "cajunb",
+    "age": 36,
     "role": "Rifler",
     "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "Preasy Esport",
-    "major_participations": 20
-  },
-  {
-    "name": "gla1ve",
-    "age": 30,
-    "role": "IGL",
-    "nationality": "丹麦",
-    "continent": "欧洲",
-    "club": "ENCE",
-    "major_participations": 18
-  },
-  {
-    "name": "electronic",
-    "age": 26,
-    "role": "Rifler",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Cloud9",
-    "major_participations": 14
-  },
-  {
-    "name": "Perfecto",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Cloud9",
-    "major_participations": 7
-  },
-  {
-    "name": "Jame",
-    "age": 26,
-    "role": "AWPer",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Virtus.pro",
+    "club": "Retired",
     "major_participations": 9
   },
   {
-    "name": "Ax1Le",
-    "age": 23,
-    "role": "Rifler",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Cloud9",
-    "major_participations": 7
-  },
-  {
-    "name": "HObbit",
-    "age": 31,
-    "role": "Rifler",
-    "nationality": "哈萨克斯坦",
-    "continent": "亚洲",
-    "club": "Cloud9",
-    "major_participations": 11
-  },
-  {
-    "name": "Boombl4",
-    "age": 26,
-    "role": "IGL",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Cloud9",
-    "major_participations": 7
-  },
-  {
-    "name": "YEKINDAR",
+    "name": "CeRq",
     "age": 25,
-    "role": "Rifler",
-    "nationality": "拉脱维亚",
+    "role": "AWPer",
+    "nationality": "保加利亚",
     "continent": "欧洲",
-    "club": "Team Liquid",
-    "major_participations": 7
-  },
-  {
-    "name": "Patsi",
-    "age": 21,
-    "role": "Rifler",
-    "nationality": "俄罗斯",
-    "continent": "欧洲",
-    "club": "Team Liquid",
-    "major_participations": 2
-  },
-  {
-    "name": "jabbi",
-    "age": 22,
-    "role": "Rifler",
-    "nationality": "丹麦",
-    "continent": "欧洲",
-    "club": "Astralis",
+    "club": "500",
     "major_participations": 5
   },
   {
-    "name": "TeSeS",
-    "age": 24,
-    "role": "Rifler",
-    "nationality": "丹麦",
-    "continent": "欧洲",
-    "club": "HEROIC",
-    "major_participations": 6
-  },
-  {
-    "name": "sjuush",
-    "age": 26,
-    "role": "Rifler",
-    "nationality": "丹麦",
-    "continent": "欧洲",
-    "club": "HEROIC",
-    "major_participations": 6
-  },
-  {
-    "name": "degster",
-    "age": 23,
-    "role": "AWPer",
+    "name": "chopper",
+    "age": 28,
+    "role": "IGL",
     "nationality": "俄罗斯",
     "continent": "欧洲",
-    "club": "HEROIC",
-    "major_participations": 3
+    "club": "Team Spirit",
+    "major_participations": 5
   },
   {
-    "name": "kyxsan",
-    "age": 24,
-    "role": "IGL",
-    "nationality": "北马其顿",
-    "continent": "欧洲",
-    "club": "HEROIC",
-    "major_participations": 2
-  },
-  {
-    "name": "nicoodoz",
-    "age": 24,
+    "name": "chrisJ",
+    "age": 35,
     "role": "AWPer",
-    "nationality": "丹麦",
+    "nationality": "荷兰",
     "continent": "欧洲",
-    "club": "HEROIC",
-    "major_participations": 3
+    "club": "Retired",
+    "major_participations": 11
   },
   {
     "name": "coldzera",
@@ -572,125 +311,80 @@
     "role": "Rifler",
     "nationality": "巴西",
     "continent": "南美洲",
-    "club": "RED Canids",
+    "club": "Legacy",
     "major_participations": 11
   },
   {
-    "name": "olofmeister",
-    "age": 33,
+    "name": "cype",
+    "age": 32,
     "role": "Rifler",
     "nationality": "瑞典",
     "continent": "欧洲",
     "club": "Retired",
-    "major_participations": 17
+    "major_participations": 1
   },
   {
-    "name": "pashaBiceps",
-    "age": 37,
-    "role": "Rifler",
-    "nationality": "波兰",
-    "continent": "欧洲",
-    "club": "Retired",
-    "major_participations": 12
-  },
-  {
-    "name": "GeT_RiGhT",
-    "age": 35,
-    "role": "Rifler",
-    "nationality": "瑞典",
-    "continent": "欧洲",
-    "club": "Retired",
-    "major_participations": 13
-  },
-  {
-    "name": "f0rest",
-    "age": 37,
-    "role": "Rifler",
-    "nationality": "瑞典",
-    "continent": "欧洲",
-    "club": "Retired",
-    "major_participations": 13
-  },
-  {
-    "name": "kennyS",
-    "age": 30,
+    "name": "degster",
+    "age": 23,
     "role": "AWPer",
-    "nationality": "法国",
+    "nationality": "俄罗斯",
     "continent": "欧洲",
     "club": "Team Falcons",
-    "major_participations": 13
+    "major_participations": 2
   },
   {
-    "name": "GuardiaN",
+    "name": "dennis",
     "age": 34,
+    "role": "Rifler",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 8
+  },
+  {
+    "name": "dev1ce",
+    "age": 29,
     "role": "AWPer",
-    "nationality": "斯洛伐克",
+    "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "Retired",
-    "major_participations": 15
+    "club": "Astralis",
+    "major_participations": 19
   },
   {
-    "name": "Snax",
-    "age": 32,
-    "role": "IGL",
-    "nationality": "波兰",
-    "continent": "欧洲",
-    "club": "GamerLegion",
-    "major_participations": 13
-  },
-  {
-    "name": "JW",
+    "name": "dexter",
     "age": 30,
-    "role": "Rifler",
-    "nationality": "瑞典",
-    "continent": "欧洲",
-    "club": "EYEBALLERS",
-    "major_participations": 14
+    "role": "IGL",
+    "nationality": "澳大利亚",
+    "continent": "大洋洲",
+    "club": "Free Agent",
+    "major_participations": 4
   },
   {
-    "name": "flusha",
+    "name": "Dosia",
+    "age": 37,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 10
+  },
+  {
+    "name": "drop",
+    "age": 21,
+    "role": "Rifler",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "MIBR",
+    "major_participations": 3
+  },
+  {
+    "name": "dupreeh",
     "age": 32,
-    "role": "IGL",
-    "nationality": "瑞典",
-    "continent": "欧洲",
-    "club": "EYEBALLERS",
-    "major_participations": 15
-  },
-  {
-    "name": "KRIMZ",
-    "age": 31,
     "role": "Rifler",
-    "nationality": "瑞典",
+    "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "fnatic",
-    "major_participations": 17
-  },
-  {
-    "name": "NEO",
-    "age": 38,
-    "role": "IGL",
-    "nationality": "波兰",
-    "continent": "欧洲",
-    "club": "Retired",
-    "major_participations": 13
-  },
-  {
-    "name": "TaZ",
-    "age": 39,
-    "role": "IGL",
-    "nationality": "波兰",
-    "continent": "欧洲",
-    "club": "Retired",
-    "major_participations": 13
-  },
-  {
-    "name": "AdreN",
-    "age": 35,
-    "role": "Rifler",
-    "nationality": "哈萨克斯坦",
-    "continent": "亚洲",
-    "club": "Retired",
-    "major_participations": 12
+    "club": "Team Falcons",
+    "major_participations": 20
   },
   {
     "name": "Edward",
@@ -702,40 +396,76 @@
     "major_participations": 16
   },
   {
-    "name": "Zeus",
-    "age": 37,
+    "name": "EliGE",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "FaZe Clan",
+    "major_participations": 14
+  },
+  {
+    "name": "electronic",
+    "age": 26,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Virtus.pro",
+    "major_participations": 10
+  },
+  {
+    "name": "Ethan",
+    "age": 25,
+    "role": "Rifler",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "NRG (Valorant)",
+    "major_participations": 4
+  },
+  {
+    "name": "Ex6TenZ",
+    "age": 34,
     "role": "IGL",
-    "nationality": "乌克兰",
+    "nationality": "比利时",
     "continent": "欧洲",
     "club": "Retired",
-    "major_participations": 16
+    "major_participations": 7
   },
   {
-    "name": "Xyp9x",
-    "age": 29,
+    "name": "f0rest",
+    "age": 37,
     "role": "Rifler",
-    "nationality": "丹麦",
+    "nationality": "瑞典",
     "continent": "欧洲",
-    "club": "Astralis",
-    "major_participations": 18
+    "club": "Retired",
+    "major_participations": 12
   },
   {
-    "name": "shox",
-    "age": 33,
+    "name": "fame",
+    "age": 22,
     "role": "Rifler",
-    "nationality": "法国",
+    "nationality": "俄罗斯",
     "continent": "欧洲",
-    "club": "Nakama",
-    "major_participations": 17
+    "club": "Virtus.pro",
+    "major_participations": 2
   },
   {
-    "name": "NBK-",
-    "age": 31,
+    "name": "FalleN",
+    "age": 34,
+    "role": "AWPer",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "FURIA",
+    "major_participations": 14
+  },
+  {
+    "name": "felps",
+    "age": 28,
     "role": "Rifler",
-    "nationality": "法国",
-    "continent": "欧洲",
-    "club": "Team Falcons",
-    "major_participations": 15
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "Imperial Esports",
+    "major_participations": 6
   },
   {
     "name": "fer",
@@ -743,44 +473,71 @@
     "role": "Rifler",
     "nationality": "巴西",
     "continent": "南美洲",
-    "club": "Imperial",
-    "major_participations": 11
+    "club": "Retired",
+    "major_participations": 9
   },
   {
-    "name": "TACO",
-    "age": 30,
+    "name": "FeTiSh",
+    "age": 38,
+    "role": "IGL",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 4
+  },
+  {
+    "name": "Fifflaren",
+    "age": 38,
+    "role": "AWPer",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 3
+  },
+  {
+    "name": "FL1T",
+    "age": 24,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Virtus.pro",
+    "major_participations": 4
+  },
+  {
+    "name": "flamie",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Free Agent",
+    "major_participations": 14
+  },
+  {
+    "name": "flusha",
+    "age": 32,
+    "role": "Rifler",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 14
+  },
+  {
+    "name": "fnx",
+    "age": 35,
     "role": "Rifler",
     "nationality": "巴西",
     "continent": "南美洲",
-    "club": "00NATION",
-    "major_participations": 12
+    "club": "Retired",
+    "major_participations": 5
   },
   {
-    "name": "Stewie2K",
-    "age": 27,
-    "role": "Rifler",
-    "nationality": "美国",
-    "continent": "北美洲",
-    "club": "Free Agent",
-    "major_participations": 10
-  },
-  {
-    "name": "tarik",
-    "age": 29,
-    "role": "Rifler",
-    "nationality": "美国",
-    "continent": "北美洲",
-    "club": "Content Creator",
-    "major_participations": 8
-  },
-  {
-    "name": "danking",
-    "age": 25,
+    "name": "fox",
+    "age": 38,
     "role": "AWPer",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "TYLOO",
-    "major_participations": 2
+    "nationality": "葡萄牙",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 6
   },
   {
     "name": "friberg",
@@ -792,13 +549,58 @@
     "major_participations": 10
   },
   {
-    "name": "VINI",
-    "age": 26,
+    "name": "frozen",
+    "age": 23,
     "role": "Rifler",
-    "nationality": "巴西",
-    "continent": "南美洲",
-    "club": "Imperial",
-    "major_participations": 4
+    "nationality": "斯洛伐克",
+    "continent": "欧洲",
+    "club": "FaZe Clan",
+    "major_participations": 6
+  },
+  {
+    "name": "GeT_RiGhT",
+    "age": 35,
+    "role": "Rifler",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 12
+  },
+  {
+    "name": "gla1ve",
+    "age": 30,
+    "role": "IGL",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "ENCE",
+    "major_participations": 15
+  },
+  {
+    "name": "Gratisfaction",
+    "age": 29,
+    "role": "AWPer",
+    "nationality": "新西兰",
+    "continent": "大洋洲",
+    "club": "Retired",
+    "major_participations": 2
+  },
+  {
+    "name": "GuardiaN",
+    "age": 34,
+    "role": "AWPer",
+    "nationality": "斯洛伐克",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 15
+  },
+  {
+    "name": "Happy",
+    "age": 33,
+    "role": "IGL",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 10
   },
   {
     "name": "HEN1",
@@ -806,26 +608,170 @@
     "role": "AWPer",
     "nationality": "巴西",
     "continent": "南美洲",
-    "club": "Imperial",
-    "major_participations": 6
+    "club": "Legacy",
+    "major_participations": 4
   },
   {
-    "name": "kNgV-",
-    "age": 32,
-    "role": "AWPer",
-    "nationality": "巴西",
-    "continent": "南美洲",
-    "club": "00NATION",
+    "name": "Hiko",
+    "age": 35,
+    "role": "Rifler",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
     "major_participations": 5
   },
   {
-    "name": "acoR",
-    "age": 27,
-    "role": "AWPer",
+    "name": "HObbit",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "哈萨克斯坦",
+    "continent": "亚洲",
+    "club": "Cloud9",
+    "major_participations": 7
+  },
+  {
+    "name": "HooXi",
+    "age": 30,
+    "role": "IGL",
     "nationality": "丹麦",
     "continent": "欧洲",
-    "club": "GamerLegion",
+    "club": "Astralis",
+    "major_participations": 3
+  },
+  {
+    "name": "huNter-",
+    "age": 29,
+    "role": "Rifler",
+    "nationality": "波斯尼亚和黑塞哥维那",
+    "continent": "欧洲",
+    "club": "G2 Esports",
+    "major_participations": 6
+  },
+  {
+    "name": "iM",
+    "age": 25,
+    "role": "Rifler",
+    "nationality": "罗马尼亚",
+    "continent": "欧洲",
+    "club": "Natus Vincere",
+    "major_participations": 3
+  },
+  {
+    "name": "interz",
+    "age": 24,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Free Agent",
+    "major_participations": 4
+  },
+  {
+    "name": "isak",
+    "age": 23,
+    "role": "Rifler",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Metizport",
     "major_participations": 2
+  },
+  {
+    "name": "jabbi",
+    "age": 22,
+    "role": "Rifler",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Astralis",
+    "major_participations": 3
+  },
+  {
+    "name": "JaCkz",
+    "age": 33,
+    "role": "Rifler",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 4
+  },
+  {
+    "name": "Jame",
+    "age": 26,
+    "role": "AWPer",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Virtus.pro",
+    "major_participations": 8
+  },
+  {
+    "name": "JDC",
+    "age": 25,
+    "role": "Rifler",
+    "nationality": "德国",
+    "continent": "欧洲",
+    "club": "BIG",
+    "major_participations": 2
+  },
+  {
+    "name": "jdm64",
+    "age": 35,
+    "role": "AWPer",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
+    "major_participations": 3
+  },
+  {
+    "name": "jkaem",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "挪威",
+    "continent": "欧洲",
+    "club": "BC.Game",
+    "major_participations": 9
+  },
+  {
+    "name": "jks",
+    "age": 29,
+    "role": "Rifler",
+    "nationality": "澳大利亚",
+    "continent": "大洋洲",
+    "club": "Free Agent",
+    "major_participations": 9
+  },
+  {
+    "name": "jL",
+    "age": 25,
+    "role": "Rifler",
+    "nationality": "立陶宛",
+    "continent": "欧洲",
+    "club": "Natus Vincere",
+    "major_participations": 2
+  },
+  {
+    "name": "JW",
+    "age": 30,
+    "role": "AWPer",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 14
+  },
+  {
+    "name": "karrigan",
+    "age": 35,
+    "role": "IGL",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "FaZe Clan",
+    "major_participations": 18
+  },
+  {
+    "name": "kennyS",
+    "age": 30,
+    "role": "AWPer",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 17
   },
   {
     "name": "Keoz",
@@ -834,213 +780,691 @@
     "nationality": "比利时",
     "continent": "欧洲",
     "club": "GamerLegion",
-    "major_participations": 2
-  },
-  {
-    "name": "isak",
-    "age": 24,
-    "role": "Rifler",
-    "nationality": "瑞典",
-    "continent": "欧洲",
-    "club": "GamerLegion",
-    "major_participations": 2
-  },
-  {
-    "name": "F1KU",
-    "age": 22,
-    "role": "Rifler",
-    "nationality": "波兰",
-    "continent": "欧洲",
-    "club": "OG",
-    "major_participations": 2
-  },
-  {
-    "name": "headtr1ck",
-    "age": 21,
-    "role": "AWPer",
-    "nationality": "乌克兰",
-    "continent": "欧洲",
-    "club": "B8",
     "major_participations": 1
   },
   {
-    "name": "XANTARES",
-    "age": 29,
+    "name": "Kjaerbye",
+    "age": 27,
     "role": "Rifler",
-    "nationality": "土耳其",
-    "continent": "亚洲",
-    "club": "Eternal Fire",
-    "major_participations": 6
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 7
   },
   {
-    "name": "smooya",
-    "age": 25,
-    "role": "AWPer",
-    "nationality": "英国",
+    "name": "kioShiMa",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "法国",
     "continent": "欧洲",
-    "club": "The Witchers",
+    "club": "Retired",
+    "major_participations": 10
+  },
+  {
+    "name": "kNgV-",
+    "age": 32,
+    "role": "AWPer",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "Retired",
     "major_participations": 2
   },
   {
-    "name": "jks",
-    "age": 29,
+    "name": "KRIMZ",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "fnatic",
+    "major_participations": 16
+  },
+  {
+    "name": "KSCERATO",
+    "age": 26,
+    "role": "Rifler",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "FURIA",
+    "major_participations": 6
+  },
+  {
+    "name": "kyxsan",
+    "age": 24,
+    "role": "IGL",
+    "nationality": "北马其顿",
+    "continent": "欧洲",
+    "club": "Team Falcons",
+    "major_participations": 2
+  },
+  {
+    "name": "Liazz",
+    "age": 28,
     "role": "Rifler",
     "nationality": "澳大利亚",
     "continent": "大洋洲",
+    "club": "Retired",
+    "major_participations": 5
+  },
+  {
+    "name": "LUCAS1",
+    "age": 30,
+    "role": "Rifler",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "Retired",
+    "major_participations": 4
+  },
+  {
+    "name": "Magisk",
+    "age": 27,
+    "role": "Rifler",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Team Falcons",
+    "major_participations": 10
+  },
+  {
+    "name": "magixx",
+    "age": 22,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Team Spirit",
+    "major_participations": 4
+  },
+  {
+    "name": "Maikelele",
+    "age": 34,
+    "role": "AWPer",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 2
+  },
+  {
+    "name": "misutaaa",
+    "age": 22,
+    "role": "Rifler",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Free Agent",
+    "major_participations": 3
+  },
+  {
+    "name": "m0NESY",
+    "age": 20,
+    "role": "AWPer",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Team Falcons",
+    "major_participations": 3
+  },
+  {
+    "name": "mou",
+    "age": 34,
+    "role": "AWPer",
+    "nationality": "哈萨克斯坦",
+    "continent": "亚洲",
+    "club": "Retired",
+    "major_participations": 7
+  },
+  {
+    "name": "NAF",
+    "age": 27,
+    "role": "Rifler",
+    "nationality": "加拿大",
+    "continent": "北美洲",
+    "club": "Team Liquid",
+    "major_participations": 12
+  },
+  {
+    "name": "nafany",
+    "age": 24,
+    "role": "IGL",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "BetBoom Team",
+    "major_participations": 4
+  },
+  {
+    "name": "nawwk",
+    "age": 28,
+    "role": "AWPer",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "BC.Game",
+    "major_participations": 2
+  },
+  {
+    "name": "NBK-",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 17
+  },
+  {
+    "name": "NEO",
+    "age": 38,
+    "role": "Coach",
+    "nationality": "波兰",
+    "continent": "欧洲",
+    "club": "FaZe Clan",
+    "major_participations": 14
+  },
+  {
+    "name": "nexa",
+    "age": 28,
+    "role": "IGL",
+    "nationality": "塞尔维亚",
+    "continent": "欧洲",
+    "club": "BC.Game",
+    "major_participations": 6
+  },
+  {
+    "name": "NiKo",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "波斯尼亚和黑塞哥维那",
+    "continent": "欧洲",
+    "club": "Team Falcons",
+    "major_participations": 13
+  },
+  {
+    "name": "nitr0",
+    "age": 29,
+    "role": "IGL",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "NRG",
+    "major_participations": 13
+  },
+  {
+    "name": "n0rb3r7",
+    "age": 24,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Virtus.pro",
+    "major_participations": 2
+  },
+  {
+    "name": "n0thing",
+    "age": 34,
+    "role": "Rifler",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
+    "major_participations": 8
+  },
+  {
+    "name": "npl",
+    "age": 19,
+    "role": "Rifler",
+    "nationality": "乌克兰",
+    "continent": "欧洲",
+    "club": "B8",
+    "major_participations": 2
+  },
+  {
+    "name": "olofmeister",
+    "age": 33,
+    "role": "Rifler",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 13
+  },
+  {
+    "name": "oskar",
+    "age": 34,
+    "role": "AWPer",
+    "nationality": "捷克",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 5
+  },
+  {
+    "name": "pashaBiceps",
+    "age": 37,
+    "role": "AWPer",
+    "nationality": "波兰",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 11
+  },
+  {
+    "name": "Patsi",
+    "age": 22,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Aurora Gaming",
+    "major_participations": 2
+  },
+  {
+    "name": "Perfecto",
+    "age": 25,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Team Falcons",
+    "major_participations": 5
+  },
+  {
+    "name": "pronax",
+    "age": 34,
+    "role": "IGL",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 7
+  },
+  {
+    "name": "Qikert",
+    "age": 26,
+    "role": "Rifler",
+    "nationality": "哈萨克斯坦",
+    "continent": "亚洲",
+    "club": "PARIVISION",
+    "major_participations": 8
+  },
+  {
+    "name": "rain",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "挪威",
+    "continent": "欧洲",
+    "club": "FaZe Clan",
+    "major_participations": 17
+  },
+  {
+    "name": "refrezh",
+    "age": 27,
+    "role": "Rifler",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Preasy Esport",
+    "major_participations": 3
+  },
+  {
+    "name": "ropz",
+    "age": 25,
+    "role": "Rifler",
+    "nationality": "爱沙尼亚",
+    "continent": "欧洲",
+    "club": "Team Vitality",
+    "major_participations": 8
+  },
+  {
+    "name": "RUSH",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
+    "major_participations": 7
+  },
+  {
+    "name": "s1mple",
+    "age": 27,
+    "role": "AWPer",
+    "nationality": "乌克兰",
+    "continent": "欧洲",
+    "club": "FaZe Clan",
+    "major_participations": 14
+  },
+  {
+    "name": "s1ren",
+    "age": 23,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "BetBoom Team",
+    "major_participations": 3
+  },
+  {
+    "name": "saffee",
+    "age": 30,
+    "role": "AWPer",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "MIBR",
+    "major_participations": 3
+  },
+  {
+    "name": "SANJI",
+    "age": 26,
+    "role": "Rifler",
+    "nationality": "乌兹别克斯坦",
+    "continent": "亚洲",
+    "club": "Retired",
+    "major_participations": 2
+  },
+  {
+    "name": "sdy",
+    "age": 28,
+    "role": "Rifler",
+    "nationality": "乌克兰",
+    "continent": "欧洲",
+    "club": "ENCE",
+    "major_participations": 4
+  },
+  {
+    "name": "sgares",
+    "age": 37,
+    "role": "IGL",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
+    "major_participations": 5
+  },
+  {
+    "name": "ScreaM",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "比利时",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 8
+  },
+  {
+    "name": "seized",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 11
+  },
+  {
+    "name": "Semphis",
+    "age": 36,
+    "role": "IGL",
+    "nationality": "加拿大",
+    "continent": "北美洲",
+    "club": "Retired",
+    "major_participations": 5
+  },
+  {
+    "name": "sergej",
+    "age": 23,
+    "role": "Rifler",
+    "nationality": "芬兰",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 3
+  },
+  {
+    "name": "sh1ro",
+    "age": 24,
+    "role": "AWPer",
+    "nationality": "俄罗斯",
+    "continent": "欧洲",
+    "club": "Team Spirit",
+    "major_participations": 4
+  },
+  {
+    "name": "shox",
+    "age": 33,
+    "role": "Rifler",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 17
+  },
+  {
+    "name": "siuhy",
+    "age": 22,
+    "role": "IGL",
+    "nationality": "波兰",
+    "continent": "欧洲",
+    "club": "Team Liquid",
+    "major_participations": 3
+  },
+  {
+    "name": "sjuush",
+    "age": 26,
+    "role": "Rifler",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "HEROIC",
+    "major_participations": 5
+  },
+  {
+    "name": "Skadoodle",
+    "age": 32,
+    "role": "AWPer",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
+    "major_participations": 7
+  },
+  {
+    "name": "SmithZz",
+    "age": 37,
+    "role": "AWPer",
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 10
+  },
+  {
+    "name": "Snax",
+    "age": 32,
+    "role": "IGL",
+    "nationality": "波兰",
+    "continent": "欧洲",
     "club": "G2 Esports",
+    "major_participations": 14
+  },
+  {
+    "name": "Spinx",
+    "age": 24,
+    "role": "Rifler",
+    "nationality": "以色列",
+    "continent": "亚洲",
+    "club": "Team Vitality",
+    "major_participations": 5
+  },
+  {
+    "name": "stanislaw",
+    "age": 31,
+    "role": "IGL",
+    "nationality": "加拿大",
+    "continent": "北美洲",
+    "club": "Wildcard Gaming",
+    "major_participations": 7
+  },
+  {
+    "name": "stavn",
+    "age": 23,
+    "role": "Rifler",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Astralis",
+    "major_participations": 5
+  },
+  {
+    "name": "steel",
+    "age": 35,
+    "role": "IGL",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "Retired",
+    "major_participations": 3
+  },
+  {
+    "name": "Stewie2K",
+    "age": 27,
+    "role": "IGL",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
     "major_participations": 9
   },
   {
-    "name": "autimatic",
+    "name": "STYKO",
+    "age": 29,
+    "role": "Rifler",
+    "nationality": "斯洛伐克",
+    "continent": "欧洲",
+    "club": "Free Agent",
+    "major_participations": 6
+  },
+  {
+    "name": "suNny",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "芬兰",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 5
+  },
+  [
+  {
+    "name": "swag",
     "age": 28,
     "role": "Rifler",
     "nationality": "美国",
     "continent": "北美洲",
-    "club": "Complexity",
-    "major_participations": 8
-  },
-  {
-    "name": "Brehze",
-    "age": 27,
-    "role": "Rifler",
-    "nationality": "美国",
-    "continent": "北美洲",
-    "club": "NRG",
-    "major_participations": 7
-  },
-  {
-    "name": "CeRq",
-    "age": 25,
-    "role": "AWPer",
-    "nationality": "保加利亚",
-    "continent": "欧洲",
-    "club": "NRG",
-    "major_participations": 5
-  },
-  {
-    "name": "Ethan",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "美国",
-    "continent": "北美洲",
-    "club": "NRG",
-    "major_participations": 5
-  },
-  {
-    "name": "Grim",
-    "age": 24,
-    "role": "Rifler",
-    "nationality": "美国",
-    "continent": "北美洲",
-    "club": "Complexity",
-    "major_participations": 3
-  },
-  {
-    "name": "floppy",
-    "age": 25,
-    "role": "Rifler",
-    "nationality": "美国",
-    "continent": "北美洲",
-    "club": "Complexity",
-    "major_participations": 2
-  },
-  {
-    "name": "matys",
-    "age": 19,
-    "role": "Rifler",
-    "nationality": "捷克",
-    "continent": "欧洲",
-    "club": "G2 Esports",
-    "major_participations": 0
-  },
-  {
-    "name": "JamYoung",
-    "age": 24,
-    "role": "Rifler",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "TYLOO",
+    "club": "Retired",
     "major_participations": 1
   },
   {
-    "name": "Attacker",
-    "age": 27,
+    "name": "TACO",
+    "age": 30,
     "role": "Rifler",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "TYLOO",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "Legacy",
+    "major_participations": 9
+  },
+  {
+    "name": "tarik",
+    "age": 29,
+    "role": "Rifler",
+    "nationality": "美国",
+    "continent": "北美洲",
+    "club": "Retired",
+    "major_participations": 7
+  },
+  {
+    "name": "TaZ",
+    "age": 39,
+    "role": "Coach",
+    "nationality": "波兰",
+    "continent": "欧洲",
+    "club": "G2 Esports",
+    "major_participations": 14
+  },
+  {
+    "name": "TeSeS",
+    "age": 24,
+    "role": "Rifler",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "Team Falcons",
+    "major_participations": 5
+  },
+  {
+    "name": "torzsi",
+    "age": 23,
+    "role": "AWPer",
+    "nationality": "匈牙利",
+    "continent": "欧洲",
+    "club": "MOUZ",
     "major_participations": 3
   },
   {
-    "name": "Jee",
-    "age": 21,
-    "role": "IGL",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "TYLOO",
-    "major_participations": 0
-  },
-  {
-    "name": "Mercury",
-    "age": 21,
+    "name": "twist",
+    "age": 31,
     "role": "AWPer",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "TYLOO",
-    "major_participations": 0
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Free Agent",
+    "major_participations": 3
   },
   {
-    "name": "Moseyuh",
-    "age": 22,
+    "name": "Twistzz",
+    "age": 25,
     "role": "Rifler",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "TYLOO",
-    "major_participations": 0
+    "nationality": "加拿大",
+    "continent": "北美洲",
+    "club": "Team Liquid",
+    "major_participations": 11
   },
   {
-    "name": "westmelon",
+    "name": "Xizt",
+    "age": 34,
+    "role": "Coach",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 12
+  },
+  {
+    "name": "xertioN",
+    "age": 21,
+    "role": "Rifler",
+    "nationality": "以色列",
+    "continent": "亚洲",
+    "club": "MOUZ",
+    "major_participations": 3
+  },
+  {
+    "name": "xseveN",
+    "age": 31,
+    "role": "Rifler",
+    "nationality": "芬兰",
+    "continent": "欧洲",
+    "club": "HAVU Gaming",
+    "major_participations": 3
+  },
+  {
+    "name": "Xyp9x",
+    "age": 29,
+    "role": "Rifler",
+    "nationality": "丹麦",
+    "continent": "欧洲",
+    "club": "MOUZ",
+    "major_participations": 19
+  },
+  {
+    "name": "yuurih",
     "age": 26,
+    "role": "Rifler",
+    "nationality": "巴西",
+    "continent": "南美洲",
+    "club": "FURIA",
+    "major_participations": 7
+  },
+  {
+    "name": "Zeus",
+    "age": 38,
     "role": "IGL",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "Lynn Vision Gaming",
-    "major_participations": 2
+    "nationality": "乌克兰",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 16
   },
   {
-    "name": "z4kr",
-    "age": 22,
+    "name": "znajder",
+    "age": 32,
+    "role": "Rifler",
+    "nationality": "瑞典",
+    "continent": "欧洲",
+    "club": "Retired",
+    "major_participations": 3
+  },
+  {
+    "name": "ZywOo",
+    "age": 24,
     "role": "AWPer",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "Lynn Vision Gaming",
-    "major_participations": 2
-  },
-  {
-    "name": "Starry",
-    "age": 21,
-    "role": "Rifler",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "Lynn Vision Gaming",
-    "major_participations": 2
-  },
-  {
-    "name": "EmiliaQAQ",
-    "age": 19,
-    "role": "Rifler",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "Lynn Vision Gaming",
-    "major_participations": 0
-  },
-  {
-    "name": "C4LLM3SU3",
-    "age": 19,
-    "role": "Rifler",
-    "nationality": "中国",
-    "continent": "亚洲",
-    "club": "Lynn Vision Gaming",
-    "major_participations": 0
+    "nationality": "法国",
+    "continent": "欧洲",
+    "club": "Team Vitality",
+    "major_participations": 7
   }
 ]
