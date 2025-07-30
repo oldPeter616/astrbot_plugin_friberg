@@ -1,13 +1,17 @@
 import re
 import json
+import time
 import random
 from pathlib import Path
 from astrbot.api.event import filter, AstrMessageEvent
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 
-@register("astrbot_plugin_friberg", "YourName", "一个猜选手名字的游戏插件", "1.0.0")
+@register("astrbot_plugin_friberg", "oldPeter", "一个猜cs选手名字的游戏插件", "1.3.0")
 class PlayerGuesser(Star):
+    GUESS_LIMIT = 10
+    TIME_LIMIT_SECONDS = 300  # 5分钟
+
     def __init__(self, context: Context):
         super().__init__(context)
         self.active_games = {}
@@ -19,6 +23,36 @@ class PlayerGuesser(Star):
         if not isinstance(name, str):
             return ""
         return name.lower().replace('0', 'o').replace('1', 'i')
+        
+    def _get_player_full_details(self, player: dict) -> str:
+        """格式化并返回选手的完整信息字符串。"""
+        return (
+            f"年龄: {player.get('age', '未知')}\n"
+            f"职责: {player.get('role', '未知')}\n"
+            f"国籍: {player.get('nationality', '未知')}\n"
+            f"俱乐部: {player.get('club', '未知')}\n"
+            f"Major次数: {player.get('major_participations', '未知')}"
+        )
+
+    async def _get_valid_game_state(self, event: AstrMessageEvent) -> dict | None:
+        """检查并返回一个有效的游戏状态，处理游戏不存在或超时的情况。"""
+        session_id = event.get_session_id()
+        game_state = self.active_games.get(session_id)
+
+        if not game_state:
+            await event.yield_result(event.plain_result("游戏尚未开始，请先使用 `/弗一把` 来开始一局新游戏。"))
+            return None
+
+        time_elapsed = time.time() - game_state['start_time']
+        if time_elapsed > self.TIME_LIMIT_SECONDS:
+            secret_player = game_state['player']
+            details = self._get_player_full_details(secret_player)
+            final_message = f"⌛ 时间到！游戏已结束。\n正确答案是：{secret_player['name']}\n---\n{details}"
+            await event.yield_result(event.plain_result(final_message))
+            del self.active_games[session_id]
+            return None
+            
+        return game_state
 
     async def initialize(self):
         """插件初始化时，加载并标准化选手数据。"""
@@ -51,14 +85,16 @@ class PlayerGuesser(Star):
         secret_player = random.choice(self.players_list)
         self.active_games[session_id] = {
             'player': secret_player,
-            'given_hints': set()
+            'given_hints': set(),
+            'guess_count': 0,
+            'start_time': time.time()
         }
         
         logger.info(f"会话 {session_id} 开始新游戏，谜底: {secret_player['name']}")
 
-        instructions = """\
+        instructions = f"""\
 欢迎来到“猜选手”游戏！
-我已经想好了一位CS选手，请你来猜猜他是谁。
+我已经想好了一位CS选手，请你在 {self.GUESS_LIMIT} 次机会 和 5分钟内 猜出他是谁。
 
 --- 游戏指南 ---
 • 猜测: 请发送“我猜 [选手名]”或“猜 [选手名]”。
@@ -77,27 +113,19 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
 
     @filter.regex(r"^(?:我猜|猜)\s*(.+)")
     async def make_guess(self, event: AstrMessageEvent):
-        """进行一次选手猜测（支持多种自然语言模式）。"""
-        session_id = event.get_session_id()
-
-        if session_id not in self.active_games:
-            yield event.plain_result("游戏尚未开始，请先使用 `/弗一把` 来开始一局新游戏。")
+        """进行一次选手猜测，包含次数和时间限制。"""
+        game_state = await self._get_valid_game_state(event)
+        if not game_state:
             return
 
-        # --- Begin Final Bug Fix ---
-        # 基于文档，正确的做法是在方法内部手动解析消息文本
         full_text = event.message_str.strip()
         match = re.match(r"^(?:我猜|猜)\s*(.+)", full_text)
         
-        if match:
-            # 从我们自己的匹配结果中安全地获取选手名
-            guess_name = match.groups()[0].strip()
-        else:
-            # 此处作为最终保护，理论上不应触发，因为装饰器已过滤
+        if not match:
             logger.error(f"make_guess被触发，但手动正则匹配失败，文本为: {full_text}")
             return
-        # --- End Final Bug Fix ---
             
+        guess_name = match.groups()[0].strip()
         if not guess_name:
             yield event.plain_result("请输入你要猜测的选手名称，例如：“猜 s1mple”")
             return
@@ -109,31 +137,37 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
             yield event.plain_result(f"数据库中没有名为 “{guess_name}” 的选手哦，请检查一下输入。")
             return
 
-        secret_player = self.active_games[session_id]['player']
-        
+        secret_player = game_state['player']
         feedback, is_win = self._generate_feedback(guessed_player, secret_player)
 
         if is_win:
-            del self.active_games[session_id]
-            final_message = f"✅ 正确！谜底就是 {secret_player['name']}！\n\n{feedback}"
+            del self.active_games[event.get_session_id()]
+            final_message = f"✅ 正确！\n\n{feedback}"
             yield event.plain_result(final_message)
         else:
-            yield event.plain_result(feedback)
+            game_state['guess_count'] += 1
+            remaining_guesses = self.GUESS_LIMIT - game_state['guess_count']
+
+            if remaining_guesses > 0:
+                feedback += f"\n---\n（你还有 {remaining_guesses} 次机会）"
+                yield event.plain_result(feedback)
+            else:
+                del self.active_games[event.get_session_id()]
+                details = self._get_player_full_details(secret_player)
+                final_message = f"❌ 机会已用完，游戏结束！\n正确答案是：{secret_player['name']}\n---\n{details}"
+                yield event.plain_result(final_message)
 
     @filter.regex(r"^(?:提示)$")
     async def give_hint(self, event: AstrMessageEvent):
         """为当前游戏提供一个不重复的提示。"""
-        session_id = event.get_session_id()
-        if session_id not in self.active_games:
-            yield event.plain_result("当前没有正在进行的游戏，无法提供提示。")
+        game_state = await self._get_valid_game_state(event)
+        if not game_state:
             return
             
-        game_state = self.active_games[session_id]
         secret_player = game_state['player']
         given_hints = game_state['given_hints']
         
         hint_pool = {"职责", "国籍", "俱乐部", "Major次数"}
-        
         available_hints = list(hint_pool - given_hints)
         
         if not available_hints:
@@ -141,35 +175,34 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
             return
 
         hint_key_map = {
-            "职责": "role",
-            "国籍": "nationality",
-            "俱乐部": "club",
-            "Major次数": "major_participations"
+            "职责": "role", "国籍": "nationality", "俱乐部": "club", "Major次数": "major_participations"
         }
         chosen_key_cn = random.choice(available_hints)
         chosen_key_en = hint_key_map[chosen_key_cn]
-        hint_value = secret_player.get(chosen_key_en)
-
+        hint_value = secret_player.get(chosen_key_en, '未知')
         given_hints.add(chosen_key_cn)
         
         yield event.plain_result(f"提示：这位选手的 {chosen_key_cn} 是 {hint_value}。")
 
     @filter.regex(r"^(?:游戏停止|游戏结束|停止|结束)$")
     async def stop_game(self, event: AstrMessageEvent):
-        """停止当前游戏并公布答案（支持多种自然语言模式）。"""
-        session_id = event.get_session_id()
-        if session_id not in self.active_games:
-            yield event.plain_result("当前没有正在进行的游戏。")
+        """停止当前游戏并公布包含完整信息的答案。"""
+        game_state = await self._get_valid_game_state(event)
+        if not game_state:
             return
             
-        secret_player = self.active_games.pop(session_id)['player']
-        yield event.plain_result(f"游戏已停止。正确答案是：{secret_player['name']}。")
+        secret_player = self.active_games.pop(event.get_session_id())['player']
+        details = self._get_player_full_details(secret_player)
+        final_message = f"游戏已停止。正确答案是：{secret_player['name']}\n---\n{details}"
+        yield event.plain_result(final_message)
             
     def _generate_feedback(self, guessed_player: dict, secret_player: dict) -> (str, bool):
-        """生成换行显示的猜测反馈。"""
+        """生成换行显示的猜测反馈，并包含猜测对象标题。"""
+        header = f"猜测选手: {guessed_player['name']}\n---"
         feedback_parts = []
         is_win = True
 
+        # ... (属性比较逻辑不变) ...
         if guessed_player['age'] == secret_player['age']:
             feedback_parts.append(f"年龄: {guessed_player['age']}(√)")
         elif guessed_player['age'] > secret_player['age']:
@@ -209,7 +242,9 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
             feedback_parts.append(f"Major次数: {guessed_player['major_participations']}(↑)")
             is_win = False
         
-        return "\n".join(feedback_parts), is_win
+        body = "\n".join(feedback_parts)
+        full_feedback = f"{header}\n{body}"
+        return full_feedback, is_win
 
     async def terminate(self):
         """插件停用时清空状态"""

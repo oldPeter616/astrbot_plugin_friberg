@@ -1,6 +1,6 @@
 # AstrBot 插件：弗一把
 
-**版本:** 1.1.0
+**版本:** 1.3.0
 
 一款专为 AstrBot 设计的插件。让你随时随地可以使用QQ弗一把！
 
@@ -43,12 +43,8 @@
 
 ## 选手数据更新
 
-对于普通用户，请在 Astrbot 的插件市场寻找“friberg弗一把”并安装新版本。
-
-对于开发者或手动安装：
 1. 安装依赖: 在您的终端或命令行中，进入项目文件夹，然后运行：pip install -r requirements.txt
-2. 开始运行: 确保所有文件 (playerinfosearch.py, scraper.py, utils.py, data_models.py, config.txt, requirements.txt) 都在同一个文件夹
-3. 然后运行爬虫程序：python playerinfosearch.py
+3. 运行程序：python get_cs_players.py
 
 
 ## 贡献
