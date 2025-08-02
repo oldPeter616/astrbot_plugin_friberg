@@ -2,21 +2,26 @@ import re
 import json
 import time
 import random
+import asyncio
 from pathlib import Path
-from astrbot.api.event import filter, AstrMessageEvent
+from astrbot.api.event import filter, AstrMessageEvent, MessageChain
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 
-@register("astrbot_plugin_friberg", "oldPeter", "一个猜cs选手名字的游戏插件", "1.3.0")
+@register("astrbot_plugin_friberg", "oldPeter", "一个猜选手名字的游戏插件", "1.5.0")
 class PlayerGuesser(Star):
-    GUESS_LIMIT = 10
-    TIME_LIMIT_SECONDS = 300  # 5分钟
+    DIFFICULTY_SETTINGS = {
+        "普通": {"guesses": 10, "time": 300},
+        "进阶": {"guesses": 12, "time": 300},
+        "地狱": {"guesses": 15, "time": 420}
+    }
 
     def __init__(self, context: Context):
         super().__init__(context)
         self.active_games = {}
         self.players_list = []
         self.players_map = {}
+        self.top_30_teams = set()
 
     def _normalize_name(self, name: str) -> str:
         """将名称标准化，用于模糊匹配。忽略大小写、o/0、i/1。"""
@@ -34,90 +39,135 @@ class PlayerGuesser(Star):
             f"Major次数: {player.get('major_participations', '未知')}"
         )
 
-    async def _get_valid_game_state(self, event: AstrMessageEvent) -> dict | None:
-        """检查并返回一个有效的游戏状态，处理游戏不存在或超时的情况。"""
-        session_id = event.get_session_id()
-        game_state = self.active_games.get(session_id)
+    async def _game_timer(self, session_id: str, time_limit: int):
+        """后台计时器任务，在超时后主动结束游戏。"""
+        await asyncio.sleep(time_limit)
 
-        if not game_state:
-            await event.yield_result(event.plain_result("游戏尚未开始，请先使用 `/弗一把` 来开始一局新游戏。"))
-            return None
-
-        time_elapsed = time.time() - game_state['start_time']
-        if time_elapsed > self.TIME_LIMIT_SECONDS:
+        if session_id in self.active_games:
+            logger.info(f"会话 {session_id} 游戏超时，主动结束。")
+            game_state = self.active_games.pop(session_id)
             secret_player = game_state['player']
+            umo = game_state['umo']
+
             details = self._get_player_full_details(secret_player)
-            final_message = f"⌛ 时间到！游戏已结束。\n正确答案是：{secret_player['name']}\n---\n{details}"
-            await event.yield_result(event.plain_result(final_message))
-            del self.active_games[session_id]
-            return None
+            final_message = f"⌛ 时间到！游戏已自动结束。\n正确答案是：{secret_player['name']}\n---\n{details}"
             
-        return game_state
+            message_chain = MessageChain().message(final_message)
+            await self.context.send_message(umo, message_chain)
 
     async def initialize(self):
-        """插件初始化时，加载并标准化选手数据。"""
-        data_path = Path(__file__).parent / "players.json"
-        if not data_path.exists():
-            logger.error(f"选手数据文件未找到: {data_path}")
+        """插件初始化时，加载选手和战队排名数据。"""
+        # 加载选手数据
+        players_path = Path(__file__).parent / "players.json"
+        if not players_path.exists():
+            logger.error(f"选手数据文件未找到: {players_path}")
             return
-
         try:
-            with open(data_path, "r", encoding="utf-8") as f:
+            with open(players_path, "r", encoding="utf-8") as f:
                 self.players_list = json.load(f)
-            
             self.players_map = {self._normalize_name(player['name']): player for player in self.players_list}
             logger.info(f"成功加载 {len(self.players_list)} 位选手数据。")
-
-        except json.JSONDecodeError:
-            logger.error(f"解析 players.json 文件失败，请检查文件格式是否正确。")
         except Exception as e:
-            logger.error(f"加载选手数据时发生未知错误: {e}")
+            logger.error(f"加载 players.json 时发生错误: {e}")
+
+        # 加载战队排名数据
+        teams_path = Path(__file__).parent / "teams_top.json"
+        if not teams_path.exists():
+            logger.warning(f"战队排名文件未找到: {teams_path}。难度分级将受影响。")
+            return
+        try:
+            with open(teams_path, "r", encoding="utf-8") as f:
+                teams_data = json.load(f)
+            self.top_30_teams = {team['team_name'] for team in teams_data if team['rank'] <= 30}
+            logger.info(f"成功加载 {len(self.top_30_teams)} 支Top 30战队数据。")
+        except Exception as e:
+            logger.error(f"加载 teams_top.json 时发生错误: {e}")
 
     @filter.command("弗一把")
     async def start_game(self, event: AstrMessageEvent):
-        """开始一局新的猜选手游戏，并发送游戏说明。"""
+        """解析指令，分发到具体的游戏初始化函数。"""
+        difficulty_arg = event.message_str.strip()
+        
+        if difficulty_arg in self.DIFFICULTY_SETTINGS:
+            difficulty = difficulty_arg
+        else:
+            difficulty = "普通"  # 默认难度
+
+        await self._initialize_new_game(event, difficulty)
+
+    async def _initialize_new_game(self, event: AstrMessageEvent, difficulty: str):
+        """根据指定的难度，初始化一局新游戏。"""
         session_id = event.get_session_id()
 
-        if not self.players_list:
-            yield event.plain_result("插件数据未能成功加载，游戏无法开始。请检查后台日志。")
+        # 1. 根据难度动态构建选手池
+        player_pool = []
+        if difficulty == "普通":
+            player_pool = [p for p in self.players_list if p.get('club') in self.top_30_teams or p.get('name') == 'machineWJQ']
+        elif difficulty == "进阶":
+            normal_pool = [p for p in self.players_list if p.get('club') in self.top_30_teams or p.get('name') == 'machineWJQ']
+            advanced_pool = [p for p in self.players_list if p.get('club') == 'Retired' and p.get('major_participations', 0) > 6]
+            player_pool = normal_pool + advanced_pool
+        elif difficulty == "地狱":
+            player_pool = self.players_list
+
+        if not player_pool:
+            await event.yield_result(event.plain_result(f"无法为“{difficulty}”难度找到任何符合条件的选手，游戏无法开始。"))
             return
 
-        secret_player = random.choice(self.players_list)
+        # 2. 获取难度设定
+        settings = self.DIFFICULTY_SETTINGS[difficulty]
+        guess_limit = settings["guesses"]
+        time_limit = settings["time"]
+        
+        # 3. 如果已有游戏，先取消旧的计时器
+        if session_id in self.active_games:
+            self.active_games[session_id]['timer_task'].cancel()
+
+        # 4. 挑选谜底选手并启动游戏
+        secret_player = random.choice(player_pool)
+        timer_task = asyncio.create_task(self._game_timer(session_id, time_limit))
+        
         self.active_games[session_id] = {
             'player': secret_player,
             'given_hints': set(),
             'guess_count': 0,
-            'start_time': time.time()
+            'start_time': time.time(),
+            'timer_task': timer_task,
+            'umo': event.unified_msg_origin,
+            'guess_limit': guess_limit,
+            'time_limit': time_limit
         }
         
-        logger.info(f"会话 {session_id} 开始新游戏，谜底: {secret_player['name']}")
-
+        logger.info(f"会话 {session_id} 开始新游戏，难度: {difficulty}，谜底: {secret_player['name']}，计时器已启动。")
+        
+        time_limit_minutes = time_limit // 60
         instructions = f"""\
 欢迎来到“猜选手”游戏！
-我已经想好了一位CS选手，请你在 {self.GUESS_LIMIT} 次机会 和 5分钟内 猜出他是谁。
+已选择 **{difficulty}** 难度。你有 {guess_limit} 次机会 和 {time_limit_minutes}分钟内 猜出他是谁。
 
 --- 游戏指南 ---
 • 猜测: 请发送“我猜 [选手名]”或“猜 [选手名]”。
-• 提示: 需要线索时，请发送“提示”。每次都会给你一条不同的新线索哦！
+• 提示: 需要线索时，请发送“提示”。
 • 放弃: 想结束当前这局，请发送“结束”或“停止”。
-• 新游戏: 输入 /弗一把 随时开启新的一局。
+• 新游戏: 输入 /弗一把 或 /弗一把 <难度> (普通/进阶/地狱)。
 
 --- 符号说明 ---
-√ : 完全正确
-↑ : 谜底选手的该项数值比你猜的更大
-↓ : 谜底选手的该项数值比你猜的更小
-× : 属性错误
-O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
+√:完全正确 ↑:谜底更大 ↓:谜底更小 ×:错误 O:(国籍)同大洲"""
 
-        yield event.plain_result(instructions)
+        await event.yield_result(event.plain_result(instructions))
+
 
     @filter.regex(r"^(?:我猜|猜)\s*(.+)")
     async def make_guess(self, event: AstrMessageEvent):
         """进行一次选手猜测，包含次数和时间限制。"""
-        game_state = await self._get_valid_game_state(event)
+        session_id = event.get_session_id()
+        game_state = self.active_games.get(session_id)
+
         if not game_state:
+            yield event.plain_result("游戏尚未开始，请先使用 `/弗一把` 来开始一局新游戏。")
             return
 
+        # ... (内部解析逻辑与上一版相同) ...
         full_text = event.message_str.strip()
         match = re.match(r"^(?:我猜|猜)\s*(.+)", full_text)
         
@@ -136,23 +186,25 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         if not guessed_player:
             yield event.plain_result(f"数据库中没有名为 “{guess_name}” 的选手哦，请检查一下输入。")
             return
-
+        
         secret_player = game_state['player']
         feedback, is_win = self._generate_feedback(guessed_player, secret_player)
 
         if is_win:
-            del self.active_games[event.get_session_id()]
+            game_state['timer_task'].cancel()
+            del self.active_games[session_id]
             final_message = f"✅ 正确！\n\n{feedback}"
             yield event.plain_result(final_message)
         else:
             game_state['guess_count'] += 1
-            remaining_guesses = self.GUESS_LIMIT - game_state['guess_count']
+            remaining_guesses = game_state['guess_limit'] - game_state['guess_count']
 
             if remaining_guesses > 0:
                 feedback += f"\n---\n（你还有 {remaining_guesses} 次机会）"
                 yield event.plain_result(feedback)
             else:
-                del self.active_games[event.get_session_id()]
+                game_state['timer_task'].cancel()
+                del self.active_games[session_id]
                 details = self._get_player_full_details(secret_player)
                 final_message = f"❌ 机会已用完，游戏结束！\n正确答案是：{secret_player['name']}\n---\n{details}"
                 yield event.plain_result(final_message)
@@ -160,10 +212,14 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
     @filter.regex(r"^(?:提示)$")
     async def give_hint(self, event: AstrMessageEvent):
         """为当前游戏提供一个不重复的提示。"""
-        game_state = await self._get_valid_game_state(event)
+        session_id = event.get_session_id()
+        game_state = self.active_games.get(session_id)
+
         if not game_state:
+            yield event.plain_result("当前没有正在进行的游戏，无法提供提示。")
             return
-            
+        
+        # ... (内部逻辑与上一版完全相同) ...
         secret_player = game_state['player']
         given_hints = game_state['given_hints']
         
@@ -186,12 +242,16 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
 
     @filter.regex(r"^(?:游戏停止|游戏结束|停止|结束)$")
     async def stop_game(self, event: AstrMessageEvent):
-        """停止当前游戏并公布包含完整信息的答案。"""
-        game_state = await self._get_valid_game_state(event)
+        """停止当前游戏，取消计时器并公布答案。"""
+        session_id = event.get_session_id()
+        game_state = self.active_games.get(session_id)
+
         if not game_state:
+            yield event.plain_result("当前没有正在进行的游戏。")
             return
-            
-        secret_player = self.active_games.pop(event.get_session_id())['player']
+        
+        game_state['timer_task'].cancel()
+        secret_player = self.active_games.pop(session_id)['player']
         details = self._get_player_full_details(secret_player)
         final_message = f"游戏已停止。正确答案是：{secret_player['name']}\n---\n{details}"
         yield event.plain_result(final_message)
@@ -202,7 +262,7 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         feedback_parts = []
         is_win = True
 
-        # ... (属性比较逻辑不变) ...
+        # ... (属性比较逻辑与上一版完全相同) ...
         if guessed_player['age'] == secret_player['age']:
             feedback_parts.append(f"年龄: {guessed_player['age']}(√)")
         elif guessed_player['age'] > secret_player['age']:
@@ -247,7 +307,11 @@ O : (国籍) 虽然国家不对，但和谜底选手属于同一个大洲"""
         return full_feedback, is_win
 
     async def terminate(self):
-        """插件停用时清空状态"""
+        """插件停用时，清理所有正在运行的计时器任务。"""
+        logger.info("PlayerGuesser 插件正在卸载，开始清理后台任务...")
+        for session_id, game_state in list(self.active_games.items()):
+            game_state['timer_task'].cancel()
+            logger.info(f"已取消会话 {session_id} 的计时器任务。")
         self.active_games.clear()
         self.players_list.clear()
         self.players_map.clear()
