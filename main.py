@@ -57,7 +57,6 @@ class PlayerGuesser(Star):
 
     async def initialize(self):
         """插件初始化时，加载选手和战队排名数据。"""
-        # 加载选手数据
         players_path = Path(__file__).parent / "players.json"
         if not players_path.exists():
             logger.error(f"选手数据文件未找到: {players_path}")
@@ -70,7 +69,6 @@ class PlayerGuesser(Star):
         except Exception as e:
             logger.error(f"加载 players.json 时发生错误: {e}")
 
-        # 加载战队排名数据
         teams_path = Path(__file__).parent / "teams_top.json"
         if not teams_path.exists():
             logger.warning(f"战队排名文件未找到: {teams_path}。难度分级将受影响。")
@@ -91,7 +89,7 @@ class PlayerGuesser(Star):
         if difficulty_arg in self.DIFFICULTY_SETTINGS:
             difficulty = difficulty_arg
         else:
-            difficulty = "普通"  # 默认难度
+            difficulty = "普通"
 
         await self._initialize_new_game(event, difficulty)
 
@@ -99,7 +97,6 @@ class PlayerGuesser(Star):
         """根据指定的难度，初始化一局新游戏。"""
         session_id = event.get_session_id()
 
-        # 1. 根据难度动态构建选手池
         player_pool = []
         if difficulty == "普通":
             player_pool = [p for p in self.players_list if p.get('club') in self.top_30_teams or p.get('name') == 'machineWJQ']
@@ -111,19 +108,17 @@ class PlayerGuesser(Star):
             player_pool = self.players_list
 
         if not player_pool:
-            await event.yield_result(event.plain_result(f"无法为“{difficulty}”难度找到任何符合条件的选手，游戏无法开始。"))
+            no_player_message = MessageChain().message(f"无法为“{difficulty}”难度找到任何符合条件的选手，游戏无法开始。")
+            await event.send(no_player_message)
             return
 
-        # 2. 获取难度设定
         settings = self.DIFFICULTY_SETTINGS[difficulty]
         guess_limit = settings["guesses"]
         time_limit = settings["time"]
         
-        # 3. 如果已有游戏，先取消旧的计时器
         if session_id in self.active_games:
             self.active_games[session_id]['timer_task'].cancel()
 
-        # 4. 挑选谜底选手并启动游戏
         secret_player = random.choice(player_pool)
         timer_task = asyncio.create_task(self._game_timer(session_id, time_limit))
         
@@ -154,8 +149,11 @@ class PlayerGuesser(Star):
 --- 符号说明 ---
 √:完全正确 ↑:谜底更大 ↓:谜底更小 ×:错误 O:(国籍)同大洲"""
 
-        await event.yield_result(event.plain_result(instructions))
-
+        # --- Begin Bug Fix ---
+        # 使用文档中指定的、正确的主动发送消息方法
+        message_chain = MessageChain().message(instructions)
+        await event.send(message_chain)
+        # --- End Bug Fix ---
 
     @filter.regex(r"^(?:我猜|猜)\s*(.+)")
     async def make_guess(self, event: AstrMessageEvent):
@@ -167,7 +165,6 @@ class PlayerGuesser(Star):
             yield event.plain_result("游戏尚未开始，请先使用 `/弗一把` 来开始一局新游戏。")
             return
 
-        # ... (内部解析逻辑与上一版相同) ...
         full_text = event.message_str.strip()
         match = re.match(r"^(?:我猜|猜)\s*(.+)", full_text)
         
@@ -219,7 +216,6 @@ class PlayerGuesser(Star):
             yield event.plain_result("当前没有正在进行的游戏，无法提供提示。")
             return
         
-        # ... (内部逻辑与上一版完全相同) ...
         secret_player = game_state['player']
         given_hints = game_state['given_hints']
         
@@ -262,7 +258,6 @@ class PlayerGuesser(Star):
         feedback_parts = []
         is_win = True
 
-        # ... (属性比较逻辑与上一版完全相同) ...
         if guessed_player['age'] == secret_player['age']:
             feedback_parts.append(f"年龄: {guessed_player['age']}(√)")
         elif guessed_player['age'] > secret_player['age']:
