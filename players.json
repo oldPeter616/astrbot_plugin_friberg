@@ -2152,7 +2152,7 @@
   },
   {
     "name": "kauez",
-    "club": "Active / VAC Banned /   / (Expired)",
+    "club": "Active / VAC Banned",
     "continent": "SA",
     "nationality": "巴西",
     "age": 22,
@@ -2386,7 +2386,7 @@
   },
   {
     "name": "kye",
-    "club": "Active / VAC Banned /   / (Expired)",
+    "club": "Active / VAC Banned",
     "continent": "SA",
     "nationality": "巴西",
     "age": 20,
@@ -3952,7 +3952,7 @@
   },
   {
     "name": "starix",
-    "club": "Active / Valve Banned /   / (Expired)",
+    "club": "Active / Valve Banned",
     "continent": "EU",
     "nationality": "乌克兰",
     "age": 37,
@@ -4192,5 +4192,149 @@
     "age": 29,
     "role": "Caster / Manager",
     "major_participations": 0
+  },
+  {
+    "name": "twist",
+    "club": "Alliance",
+    "continent": "EU",
+    "nationality": "瑞典",
+    "age": 30,
+    "role": "In-game leader",
+    "major_participations": 5
+  },
+  {
+    "name": "Twistzz",
+    "club": "Team Liquid",
+    "continent": "NA",
+    "nationality": "加拿大",
+    "age": 25,
+    "role": "Rifler",
+    "major_participations": 10
+  },
+  {
+    "name": "fox",
+    "club": "SAW",
+    "continent": "EU",
+    "nationality": "葡萄牙",
+    "age": 38,
+    "role": "In-game leader",
+    "major_participations": 5
+  },
+  {
+    "name": "w0nderful",
+    "club": "Natus Vincere",
+    "continent": "EU",
+    "nationality": "乌克兰",
+    "age": 20,
+    "role": "AWPer",
+    "major_participations": 4
+  },
+  {
+    "name": "XANTARES",
+    "club": "Aurora Gaming",
+    "continent": "EU",
+    "nationality": "土耳其",
+    "age": 29,
+    "role": "Rifler",
+    "major_participations": 6
+  },
+  {
+    "name": "YEKINDAR",
+    "club": "FURIA",
+    "continent": "SA",
+    "nationality": "拉脱维亚",
+    "age": 25,
+    "role": "Rifler",
+    "major_participations": 6
+  },
+  {
+    "name": "yuurih",
+    "club": "FURIA",
+    "continent": "SA",
+    "nationality": "巴西",
+    "age": 25,
+    "role": "Rifler",
+    "major_participations": 9
+  },
+  {
+    "name": "westmelon",
+    "club": "Lynn Vision Gaming",
+    "continent": "AS",
+    "nationality": "中国",
+    "age": 24,
+    "role": "In-game leader",
+    "major_participations": 2
+  },
+  {
+    "name": "z4kr",
+    "club": "Lynn Vision Gaming",
+    "continent": "AS",
+    "nationality": "中国",
+    "age": 22,
+    "role": "AWPer",
+    "major_participations": 2
+  },
+  {
+    "name": "ultimate",
+    "club": "Team Liquid",
+    "continent": "NA",
+    "nationality": "波兰",
+    "age": 21,
+    "role": "AWPer",
+    "major_participations": 2
+  },
+  {
+    "name": "ztr",
+    "club": "GamerLegion",
+    "continent": "EU",
+    "nationality": "瑞典",
+    "age": 22,
+    "role": "In-game leader",
+    "major_participations": 1
+  },
+  {
+    "name": "PR",
+    "club": "GamerLegion",
+    "continent": "EU",
+    "nationality": "捷克",
+    "age": 17,
+    "role": "Rifler",
+    "major_participations": 0
+  },
+  {
+    "name": "Kursy",
+    "club": "GamerLegion",
+    "continent": "EU",
+    "nationality": "法国",
+    "age": 23,
+    "role": "AWPer",
+    "major_participations": 0
+  },
+  {
+    "name": "torzsi",
+    "club": "MOUZ",
+    "continent": "EU",
+    "nationality": "匈牙利",
+    "age": 23,
+    "role": "AWPer",
+    "major_participations": 5
+  },
+  {
+    "name": "xertioN",
+    "club": "MOUZ",
+    "continent": "EU",
+    "nationality": "以色列",
+    "age": 21,
+    "role": "Rifler",
+    "major_participations": 5
+  },
+  {
+    "name": "Lucky",
+    "club": "3DMAX",
+    "continent": "EU",
+    "nationality": "法国",
+    "age": 27,
+    "role": "Rifler",
+    "major_participations": 4
   }
 ]

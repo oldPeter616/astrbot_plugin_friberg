@@ -8,7 +8,7 @@ from astrbot.api.event import filter, AstrMessageEvent, MessageChain
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 
-@register("astrbot_plugin_friberg", "oldPeter", "一个猜选手名字的游戏插件", "1.5.0")
+@register("astrbot_plugin_friberg", "oldPeter", "一个猜选手名字的游戏插件", "1.6.0")
 class PlayerGuesser(Star):
     DIFFICULTY_SETTINGS = {
         "普通": {"guesses": 10, "time": 300},
@@ -35,6 +35,7 @@ class PlayerGuesser(Star):
             f"年龄: {player.get('age', '未知')}\n"
             f"职责: {player.get('role', '未知')}\n"
             f"国籍: {player.get('nationality', '未知')}\n"
+            f"地区: {player.get('continent', '未知')}\n"
             f"俱乐部: {player.get('club', '未知')}\n"
             f"Major次数: {player.get('major_participations', '未知')}"
         )
@@ -84,7 +85,17 @@ class PlayerGuesser(Star):
     @filter.command("弗一把")
     async def start_game(self, event: AstrMessageEvent):
         """解析指令，分发到具体的游戏初始化函数。"""
-        difficulty_arg = event.message_str.strip()
+        session_id = event.get_session_id()
+        
+        if session_id in self.active_games:
+            yield event.plain_result("当前已有游戏正在进行中，请先完成后再开始新游戏！")
+            return
+
+        # --- Begin Bug Fix ---
+        # 将消息字符串按空格分割，并取最后一个部分作为难度参数
+        parts = event.message_str.strip().split()
+        difficulty_arg = parts[-1] if parts else ""
+        # --- End Bug Fix ---
         
         if difficulty_arg in self.DIFFICULTY_SETTINGS:
             difficulty = difficulty_arg
@@ -147,13 +158,11 @@ class PlayerGuesser(Star):
 • 新游戏: 输入 /弗一把 或 /弗一把 <难度> (普通/进阶/地狱)。
 
 --- 符号说明 ---
-√:完全正确 ↑:谜底更大 ↓:谜底更小 ×:错误 O:(国籍)同大洲"""
+√:完全正确 ↑:谜底更大 ↓:谜底更小 ×:错误 O:部分正确"""
 
-        # --- Begin Bug Fix ---
-        # 使用文档中指定的、正确的主动发送消息方法
         message_chain = MessageChain().message(instructions)
         await event.send(message_chain)
-        # --- End Bug Fix ---
+
 
     @filter.regex(r"^(?:我猜|猜)\s*(.+)")
     async def make_guess(self, event: AstrMessageEvent):
@@ -219,7 +228,7 @@ class PlayerGuesser(Star):
         secret_player = game_state['player']
         given_hints = game_state['given_hints']
         
-        hint_pool = {"职责", "国籍", "俱乐部", "Major次数"}
+        hint_pool = {"职责", "国籍", "地区", "俱乐部", "Major次数"}
         available_hints = list(hint_pool - given_hints)
         
         if not available_hints:
@@ -227,7 +236,7 @@ class PlayerGuesser(Star):
             return
 
         hint_key_map = {
-            "职责": "role", "国籍": "nationality", "俱乐部": "club", "Major次数": "major_participations"
+            "职责": "role", "国籍": "nationality", "地区": "continent", "俱乐部": "club", "Major次数": "major_participations"
         }
         chosen_key_cn = random.choice(available_hints)
         chosen_key_en = hint_key_map[chosen_key_cn]
@@ -258,45 +267,73 @@ class PlayerGuesser(Star):
         feedback_parts = []
         is_win = True
 
-        if guessed_player['age'] == secret_player['age']:
-            feedback_parts.append(f"年龄: {guessed_player['age']}(√)")
-        elif guessed_player['age'] > secret_player['age']:
-            feedback_parts.append(f"年龄: {guessed_player['age']}(↓)")
+        # 年龄
+        if guessed_player.get('age') == secret_player.get('age'):
+            feedback_parts.append(f"年龄: {guessed_player.get('age', '未知')}(√)")
+        elif guessed_player.get('age', 0) > secret_player.get('age', 0):
+            feedback_parts.append(f"年龄: {guessed_player.get('age', '未知')}(↓)")
             is_win = False
         else: 
-            feedback_parts.append(f"年龄: {guessed_player['age']}(↑)")
-            is_win = False
-            
-        if guessed_player['role'] == secret_player['role']:
-            feedback_parts.append(f"职责: {guessed_player['role']}(√)")
-        else:
-            feedback_parts.append(f"职责: {guessed_player['role']}(×)")
-            is_win = False
-            
-        if guessed_player['nationality'] == secret_player['nationality']:
-            feedback_parts.append(f"国籍: {guessed_player['nationality']}(√)")
-        elif guessed_player['continent'] == secret_player['continent']:
-            feedback_parts.append(f"国籍: {guessed_player['nationality']}(O)")
-            is_win = False
-        else:
-            feedback_parts.append(f"国籍: {guessed_player['nationality']}(×)")
-            is_win = False
-            
-        if guessed_player['club'] == secret_player['club']:
-            feedback_parts.append(f"俱乐部: {guessed_player['club']}(√)")
-        else:
-            feedback_parts.append(f"俱乐部: {guessed_player['club']}(×)")
+            feedback_parts.append(f"年龄: {guessed_player.get('age', '未知')}(↑)")
             is_win = False
 
-        if guessed_player['major_participations'] == secret_player['major_participations']:
-            feedback_parts.append(f"Major次数: {guessed_player['major_participations']}(√)")
-        elif guessed_player['major_participations'] > secret_player['major_participations']:
-            feedback_parts.append(f"Major次数: {guessed_player['major_participations']}(↓)")
+        # --- Begin Role Logic Change ---
+        # 职责 (支持多职责字符串)
+        guessed_role_str = guessed_player.get('role', "")
+        secret_role_str = secret_player.get('role', "")
+
+        guessed_roles_set = set(r.strip() for r in guessed_role_str.split(' / '))
+        secret_roles_set = set(r.strip() for r in secret_role_str.split(' / '))
+        
+        roles_display_str = guessed_role_str if guessed_role_str else "无"
+
+        if guessed_roles_set == secret_roles_set:
+            feedback_parts.append(f"职责: {roles_display_str}(√)")
+        elif guessed_roles_set.intersection(secret_roles_set):
+            feedback_parts.append(f"职责: {roles_display_str}(O)")
             is_win = False
         else:
-            feedback_parts.append(f"Major次数: {guessed_player['major_participations']}(↑)")
+            feedback_parts.append(f"职责: {roles_display_str}(×)")
+            is_win = False
+        # --- End Role Logic Change ---
+        
+        # 国籍
+        if guessed_player.get('nationality') == secret_player.get('nationality'):
+            feedback_parts.append(f"国籍: {guessed_player.get('nationality', '未知')}(√)")
+        else:
+            feedback_parts.append(f"国籍: {guessed_player.get('nationality', '未知')}(×)")
             is_win = False
         
+        # 地区
+        if guessed_player.get('continent') == secret_player.get('continent'):
+            feedback_parts.append(f"地区: {guessed_player.get('continent', '未知')}(√)")
+        else:
+            feedback_parts.append(f"地区: {guessed_player.get('continent', '未知')}(×)")
+            is_win = False
+            
+        # 俱乐部
+        if guessed_player.get('club') == secret_player.get('club'):
+            feedback_parts.append(f"俱乐部: {guessed_player.get('club', '未知')}(√)")
+        else:
+            feedback_parts.append(f"俱乐部: {guessed_player.get('club', '未知')}(×)")
+            is_win = False
+
+        # Major次数
+        if guessed_player.get('major_participations') == secret_player.get('major_participations'):
+            feedback_parts.append(f"Major次数: {guessed_player.get('major_participations', '未知')}(√)")
+        elif guessed_player.get('major_participations', 0) > secret_player.get('major_participations', 0):
+            feedback_parts.append(f"Major次数: {guessed_player.get('major_participations', '未知')}(↓)")
+            is_win = False
+        else:
+            feedback_parts.append(f"Major次数: {guessed_player.get('major_participations', '未知')}(↑)")
+            is_win = False
+        
+        # 最终胜利判断：确保所有属性都为√
+        # is_win 的值在上面已经被正确设置，但为了逻辑严谨，可以做一个最终确认
+        # 查找feedback_parts中是否包含任何非√的标记
+        all_correct = all('(√)' in part for part in feedback_parts)
+        is_win = all_correct
+
         body = "\n".join(feedback_parts)
         full_feedback = f"{header}\n{body}"
         return full_feedback, is_win
