@@ -1530,15 +1530,6 @@
     "major_participations": 6
   },
   {
-    "name": "Grim",
-    "club": "Complexity",
-    "continent": "NA",
-    "nationality": "美国",
-    "age": 24,
-    "role": "Rifler",
-    "major_participations": 6
-  },
-  {
     "name": "gxx-",
     "club": "Active",
     "continent": "未知",
@@ -1546,24 +1537,6 @@
     "age": 26,
     "role": "AWPer",
     "major_participations": 3
-  },
-  {
-    "name": "hades",
-    "club": "Active",
-    "continent": "EU",
-    "nationality": "波兰",
-    "age": 25,
-    "role": "AWPer",
-    "major_participations": 5
-  },
-  {
-    "name": "hades",
-    "club": "Active",
-    "continent": "EU",
-    "nationality": "波兰",
-    "age": 25,
-    "role": "AWPer",
-    "major_participations": 5
   },
   {
     "name": "hades",
@@ -1717,15 +1690,6 @@
     "age": 30,
     "role": "In-game leader / Rifler",
     "major_participations": 4
-  },
-  {
-    "name": "HS",
-    "club": "Active",
-    "continent": "EU",
-    "nationality": "爱沙尼亚",
-    "age": 28,
-    "role": "Rifler",
-    "major_participations": 1
   },
   {
     "name": "HS",
@@ -1971,15 +1935,6 @@
     "major_participations": 3
   },
   {
-    "name": "Jerry",
-    "club": "PARIVISION",
-    "continent": "EU",
-    "nationality": "俄罗斯",
-    "age": 27,
-    "role": "In-game leader / Rifler",
-    "major_participations": 3
-  },
-  {
     "name": "Jimpphat",
     "club": "MOUZ",
     "continent": "EU",
@@ -2050,15 +2005,6 @@
     "age": 31,
     "role": "Rifler",
     "major_participations": 4
-  },
-  {
-    "name": "JT",
-    "club": "Complexity",
-    "continent": "NA",
-    "nationality": "南非",
-    "age": 26,
-    "role": "In-game leader / Rifler",
-    "major_participations": 5
   },
   {
     "name": "JT",
@@ -3301,15 +3247,6 @@
     "age": 38,
     "major_participations": 1,
     "role": null
-  },
-  {
-    "name": "rain",
-    "club": "FaZe Clan",
-    "continent": "EU",
-    "nationality": "挪威",
-    "age": 30,
-    "role": "Rifler / Rifler",
-    "major_participations": 19
   },
   {
     "name": "rain",
