@@ -4205,7 +4205,7 @@
   {
     "name": "Twistzz",
     "club": "Team Liquid",
-    "continent": "NA",
+    "continent": "EU",
     "nationality": "加拿大",
     "age": 25,
     "role": "Rifler",
@@ -4277,7 +4277,7 @@
   {
     "name": "ultimate",
     "club": "Team Liquid",
-    "continent": "NA",
+    "continent": "EU",
     "nationality": "波兰",
     "age": 21,
     "role": "AWPer",
@@ -4336,5 +4336,32 @@
     "age": 27,
     "role": "Rifler",
     "major_participations": 4
+  },
+  {
+    "name": "zont1x",
+    "club": "Team Spirit",
+    "continent": "EU",
+    "nationality": "乌克兰",
+    "age": 20,
+    "role": "Rifler",
+    "major_participations": 3
+  },
+  {
+    "name": "Zeus",
+    "club": "Retired",
+    "continent": "EU",
+    "nationality": "乌克兰",
+    "age": 37,
+    "role": "In-game leader",
+    "major_participations": 15
+  },
+  {
+    "name": "dupreeh",
+    "club": "Active",
+    "continent": "EU",
+    "nationality": "丹麦",
+    "age": 32,
+    "role": "Broadcast Analyst",
+    "major_participations": 19
   }
 ]
