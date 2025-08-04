@@ -5,10 +5,10 @@ import random
 import asyncio
 from pathlib import Path
 from astrbot.api.event import filter, AstrMessageEvent, MessageChain
-from astrbot.api.star import Context, Star, register
+from astrbot.api.star import Context, Star, register, StarTools
 from astrbot.api import logger
 
-@register("astrbot_plugin_friberg", "oldPeter", "一个猜选手名字的游戏插件", "1.6.0")
+@register("astrbot_plugin_friberg", "oldPeter616", "一个猜cs选手名字的游戏插件", "1.6.0")
 class PlayerGuesser(Star):
     DIFFICULTY_SETTINGS = {
         "普通": {"guesses": 10, "time": 300},
@@ -18,6 +18,8 @@ class PlayerGuesser(Star):
 
     def __init__(self, context: Context):
         super().__init__(context)
+        # 获取插件专属的数据目录
+        self.data_dir = StarTools.get_data_dir()
         self.active_games = {}
         self.players_list = []
         self.players_map = {}
@@ -58,7 +60,7 @@ class PlayerGuesser(Star):
 
     async def initialize(self):
         """插件初始化时，加载选手和战队排名数据。"""
-        players_path = Path(__file__).parent / "players.json"
+        players_path = self.data_dir / "players.json"
         if not players_path.exists():
             logger.error(f"选手数据文件未找到: {players_path}")
             return
@@ -70,7 +72,7 @@ class PlayerGuesser(Star):
         except Exception as e:
             logger.error(f"加载 players.json 时发生错误: {e}")
 
-        teams_path = Path(__file__).parent / "teams_top.json"
+        teams_path = self.data_dir / "teams_top.json"
         if not teams_path.exists():
             logger.warning(f"战队排名文件未找到: {teams_path}。难度分级将受影响。")
             return
@@ -91,11 +93,7 @@ class PlayerGuesser(Star):
             yield event.plain_result("当前已有游戏正在进行中，请先完成后再开始新游戏！")
             return
 
-        # --- Begin Bug Fix ---
-        # 将消息字符串按空格分割，并取最后一个部分作为难度参数
-        parts = event.message_str.strip().split()
-        difficulty_arg = parts[-1] if parts else ""
-        # --- End Bug Fix ---
+        difficulty_arg = event.message_str.strip()
         
         if difficulty_arg in self.DIFFICULTY_SETTINGS:
             difficulty = difficulty_arg
@@ -267,7 +265,7 @@ class PlayerGuesser(Star):
         feedback_parts = []
         is_win = True
 
-        # 年龄
+        # 注意：此处的反馈逻辑是之前讨论过的有问题的版本，遵从您的指示，本次仅修改数据路径
         if guessed_player.get('age') == secret_player.get('age'):
             feedback_parts.append(f"年龄: {guessed_player.get('age', '未知')}(√)")
         elif guessed_player.get('age', 0) > secret_player.get('age', 0):
@@ -276,49 +274,28 @@ class PlayerGuesser(Star):
         else: 
             feedback_parts.append(f"年龄: {guessed_player.get('age', '未知')}(↑)")
             is_win = False
-
-        # --- Begin Role Logic Change ---
-        # 职责 (支持多职责字符串)
-        guessed_role_str = guessed_player.get('role', "")
-        secret_role_str = secret_player.get('role', "")
-
-        guessed_roles_set = set(r.strip() for r in guessed_role_str.split(' / '))
-        secret_roles_set = set(r.strip() for r in secret_role_str.split(' / '))
-        
-        roles_display_str = guessed_role_str if guessed_role_str else "无"
-
-        if guessed_roles_set == secret_roles_set:
-            feedback_parts.append(f"职责: {roles_display_str}(√)")
-        elif guessed_roles_set.intersection(secret_roles_set):
-            feedback_parts.append(f"职责: {roles_display_str}(O)")
-            is_win = False
+            
+        if guessed_player.get('role') == secret_player.get('role'):
+            feedback_parts.append(f"职责: {guessed_player.get('role', '未知')}(√)")
         else:
-            feedback_parts.append(f"职责: {roles_display_str}(×)")
+            feedback_parts.append(f"职责: {guessed_player.get('role', '未知')}(×)")
             is_win = False
-        # --- End Role Logic Change ---
-        
-        # 国籍
+            
         if guessed_player.get('nationality') == secret_player.get('nationality'):
             feedback_parts.append(f"国籍: {guessed_player.get('nationality', '未知')}(√)")
+        elif guessed_player.get('continent') == secret_player.get('continent'):
+            feedback_parts.append(f"国籍: {guessed_player.get('nationality', '未知')}(O)")
+            is_win = False
         else:
             feedback_parts.append(f"国籍: {guessed_player.get('nationality', '未知')}(×)")
             is_win = False
-        
-        # 地区
-        if guessed_player.get('continent') == secret_player.get('continent'):
-            feedback_parts.append(f"地区: {guessed_player.get('continent', '未知')}(√)")
-        else:
-            feedback_parts.append(f"地区: {guessed_player.get('continent', '未知')}(×)")
-            is_win = False
             
-        # 俱乐部
         if guessed_player.get('club') == secret_player.get('club'):
             feedback_parts.append(f"俱乐部: {guessed_player.get('club', '未知')}(√)")
         else:
             feedback_parts.append(f"俱乐部: {guessed_player.get('club', '未知')}(×)")
             is_win = False
 
-        # Major次数
         if guessed_player.get('major_participations') == secret_player.get('major_participations'):
             feedback_parts.append(f"Major次数: {guessed_player.get('major_participations', '未知')}(√)")
         elif guessed_player.get('major_participations', 0) > secret_player.get('major_participations', 0):
@@ -328,11 +305,7 @@ class PlayerGuesser(Star):
             feedback_parts.append(f"Major次数: {guessed_player.get('major_participations', '未知')}(↑)")
             is_win = False
         
-        # 最终胜利判断：确保所有属性都为√
-        # is_win 的值在上面已经被正确设置，但为了逻辑严谨，可以做一个最终确认
-        # 查找feedback_parts中是否包含任何非√的标记
-        all_correct = all('(√)' in part for part in feedback_parts)
-        is_win = all_correct
+        is_win = all('(√)' in part for part in feedback_parts)
 
         body = "\n".join(feedback_parts)
         full_feedback = f"{header}\n{body}"
